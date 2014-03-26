@@ -1,0 +1,8 @@
+www
+.idea
+install.sh
+mobile4social_demo/modules/contrib/*
+mobile4social_demo/themes/contrib
+mobile4social_demo/libraries
+mobile4social_demo/themes/bootstrap
+.DS_store
