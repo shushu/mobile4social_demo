@@ -1,5 +1,5 @@
-name = mobile4social_demo
-description = Mobile4Social Demo
+name = Mobile4Social Demo
+description = Install Mobile4Social Demo Drupal site.
 core = 7.x
 
 ; Core

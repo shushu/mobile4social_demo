@@ -6,11 +6,49 @@
 function mobile4social_demo_install_tasks($install_state) {
   $tasks = array();
 
+  $tasks['mobile4social_demo_settings'] = array(
+    'display_name' => t('Settings'),
+    'type' => 'form',
+  );
+
   $tasks['mobile4social_demo_variables_set'] = array(
     'display_name' => t('Setting variables'),
   );
 
   return $tasks;
+}
+
+/**
+ * Flavor selection form.
+ */
+function mobile4social_demo_settings($form, &$form_state) {
+  $form['gcm_sender_id'] = array(
+    '#type' => 'textfield',
+    '#title' => t('GCM sender id'),
+    '#description' => t('Google cloud messaging sender id.'),
+  );
+
+  $form['gcm_api_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('GCM api key'),
+    '#description' => t('Google API key.'),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Next'),
+  );
+
+  return $form;
+}
+
+/**
+ * Submit handler; Set the variable for indicate if the profile task of migrate
+ * content need to be invoked.
+ */
+function mobile4social_demo_settings_submit($form, $form_state) {
+  variable_set('gcm_sender_id', $form_state['values']['gcm_sender_id']);
+  variable_set('gcm_api_key', $form_state['values']['gcm_api_key']);
 }
 
 /**
