@@ -79,17 +79,11 @@ projects[state_entity][subdir] = contrib
 ;projects[taxonomy_services][version] = "x.x"
 ;projects[taxonomy_services][subdir] = contrib
 
-projects[Things][version] = "1.1"
-projects[Things][subdir] = contrib
-
 projects[views_rules][version] = "1.0"
 projects[views_rules][subdir] = contrib
 
 projects[rules][version] = "2.6"
 projects[rules][subdir] = contrib
-
-projects[privatemsg][version] = "1.4"
-projects[privatemsg][subdir] = contrib
 
 ; Themes
 projects[bootstrap] = bootstrap
