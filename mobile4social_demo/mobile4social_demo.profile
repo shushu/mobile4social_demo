@@ -22,7 +22,7 @@ function mobile4social_demo_install_tasks($install_state) {
  * Flavor selection form.
  */
 function mobile4social_demo_settings($form, &$form_state) {
-  $form['gcm_sender_id'] = array(
+  $form['gcm_project_id'] = array(
     '#type' => 'textfield',
     '#title' => t('GCM sender id'),
     '#description' => t('Google cloud messaging sender id.'),
@@ -47,7 +47,7 @@ function mobile4social_demo_settings($form, &$form_state) {
  * content need to be invoked.
  */
 function mobile4social_demo_settings_submit($form, $form_state) {
-  variable_set('gcm_sender_id', $form_state['values']['gcm_sender_id']);
+  variable_set('gcm_project_id', $form_state['values']['gcm_project_id']);
   variable_set('gcm_api_key', $form_state['values']['gcm_api_key']);
 }
 
