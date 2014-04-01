@@ -1,0 +1,12 @@
+default:
+  context:
+    parameters:
+      drupal_users:
+        admin:
+          'admin'
+  extensions:
+    Behat\MinkExtension\Extension:
+      base_url:  BASE_URL
+    Drupal\DrupalExtension\Extension:
+      drush:
+        alias: DRUSH_ALIAS

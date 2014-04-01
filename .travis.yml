@@ -1,0 +1,52 @@
+language: php
+
+php:
+  - 5.4
+
+mysql:
+  database: drupal
+  username: root
+  encoding: utf8
+
+env:
+  - TEST_SUITE=all
+
+before_script:
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - composer global require drush/drush:6.2.0
+  # Install apache
+  - sudo apt-get update
+  - sudo apt-get install apache2
+  - sudo a2enmod actions
+  - sudo a2enmod rewrite
+  - echo "export PATH=/home/vagrant/.phpenv/bin:$PATH" | sudo tee -a /etc/apache2/envvars > /dev/null
+  - echo "$(curl -fsSL https://gist.github.com/roderik/16d751c979fdeb5a14e3/raw/74f4fec92c064c4f683fef28a6098caf0f038de7/gistfile1.txt)" | sudo tee /etc/apache2/conf.d/phpconfig > /dev/null
+  - echo "$(curl -fsSL https://gist.github.com/roderik/2eb301570ed4a1f4c33d/raw/8066fda124b6c86f69ad32a010b8c22bbaf868e8/gistfile1.txt)" | sed -e "s,PATH,`pwd`/www,g" | sudo tee /etc/apache2/sites-available/default > /dev/null
+  - sudo service apache2 restart
+  - sudo service apache2 reload
+  - "mysql -e 'create database drupal;'"
+  - phpenv rehash
+  - bash scripts/setup
+  - bash scripts/build
+
+  - cd www
+  - mkdir -p /tmp
+  - mkdir -p /tmp/devel-mails
+  - mkdir -p sites/default/files
+  - sudo chmod 777 /tmp -R
+  - sudo chmod 777 sites/default -R
+  - time drush si mobile4social_demo --account-name=admin --db-url=mysql://root:@127.0.0.1/drupal --yes
+  - drush mi --all --user=1
+
+  # Copy Behat configuration file.
+  - cd profiles/mobile4social_demo/behat
+  - cp behat.local.yml.travis behat.local.yml
+  - curl -s https://getcomposer.org/installer | php
+  - php composer.phar install --prefer-source
+  - sudo cat /var/log/apache2/error.log
+
+script:
+  - ./bin/behat --tags=$TEST_SUITE
+
+after_script:
+    - sudo cat /var/log/apache2/error.log
