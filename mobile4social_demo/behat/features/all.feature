@@ -3,4 +3,5 @@ Feature:
 
   @api @all
   Scenario: Test basic installation
-    Given I visit "user"
+    Given I am logging in as "admin"
+     Then I should see the text "Drupal of Things" under "admin-menu"
