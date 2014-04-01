@@ -21,7 +21,7 @@ projects[entityreference][version] = 1.1
 
 projects[features][subdir] = "contrib"
 projects[features][version] = 2.x-dev
-projects[features][patch] = "https://drupal.org/files/issues/features_menu_links_revert_missing_parent.diff"
+projects[features][patch][] = "https://drupal.org/files/issues/features_menu_links_revert_missing_parent.diff"
 
 projects[jquery_update][version] = "2.x-dev"
 projects[jquery_update][subdir] = contrib
