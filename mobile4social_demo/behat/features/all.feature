@@ -4,4 +4,4 @@ Feature:
   @api @all
   Scenario: Test basic installation
     Given I am logging in as "admin"
-     Then I should see the text "Drupal of Things" under "admin-menu"
+     Then I should see the menu item "Drupal of Things" before "Content"

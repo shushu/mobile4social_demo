@@ -71,20 +71,13 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @Then /^I should see the text "([^"]*)" under "([^"]*)"$/
+   * @Then /^I should see the menu item "([^"]*)" before "([^"]*)"$/
    */
-  public function iShouldSeeTheTextUnder($text, $container) {
-    if (!$this->searchForTextUnderElement($text, $container)) {
-      throw new Exception(sprintf("The element with %s was not found in %s", $text, $container));
-    }
-  }
-
-  /**
-   * Searching text under an element with class
-   */
-  private function searchForTextUnderElement($text, $container) {
+  public function iShouldSeeTheMenuItemBefore($first, $second) {
     $page = $this->getSession()->getPage();
-    $element = $page->find('xpath', "//*[contains(@id, '{$container}')]//*[contains(., '{$text}')]");
-    return $element;
+    $pattern = '/[\s\S]*' . $first . '[\s\S]*' . $second . '[\s\S]*/';
+    if (!preg_match($pattern, $page->getContent())) {
+      throw new Exception(sprintf("The menu item %s is not before %s", $first, $second));
+    }
   }
 }
