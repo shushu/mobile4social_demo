@@ -23,7 +23,6 @@ features[field_instance][] = things-android_device-field_device_id
 features[field_instance][] = things-android_device-field_gcm_id
 features[field_instance][] = things-android_device-field_owner
 features[field_instance][] = things-android_device-field_updater
-features[rules_config][] = rules_when_thing_with_gcm_identifier_is_saved
 features[services_endpoint][] = things
 features[things_ids_type][] = field_device_id
 features[things_ids_type][] = field_gcm_id
