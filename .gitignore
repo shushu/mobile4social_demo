@@ -15,7 +15,6 @@ mobile4social_demo/themes/bootstrap
 *.DS_store
 *.swp
 
-
 # Dont's track coder module backups
 *.coder.orig
 
