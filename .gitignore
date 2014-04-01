@@ -1,8 +1,33 @@
 www
 .idea
+.project
+.buildpath
+.settings
 install.sh
 mobile4social_demo/modules/contrib/*
 mobile4social_demo/themes/contrib
 mobile4social_demo/libraries
 mobile4social_demo/themes/bootstrap
 .DS_store
+
+# Don't track temporary files or Mac OS system files.
+*~
+*.DS_store
+*.swp
+
+# Dont's track coder module backups
+*.coder.orig
+
+#behat
+mobile4social_demo/behat/vendor
+mobile4social_demo/behat/bin
+mobile4social_demo/behat.local.yml
+composer.phar
+mobile4social_demo/composer.lock
+behat/vendor
+
+#make
+mobile4social_demo/1/
+mobile4social_demo/libraries/
+mobile4social_demo/modules/contrib/
+www/
