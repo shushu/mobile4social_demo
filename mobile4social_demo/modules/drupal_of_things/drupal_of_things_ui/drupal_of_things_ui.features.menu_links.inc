@@ -10,21 +10,21 @@
 function drupal_of_things_ui_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: management_drupal-of-things:<front>
-  $menu_links['management_drupal-of-things:<front>'] = array(
+  // Exported menu link: management_drupal-of-things:node
+  $menu_links['management_drupal-of-things:node'] = array(
     'menu_name' => 'management',
-    'link_path' => '<front>',
-    'router_path' => '',
+    'link_path' => 'node',
+    'router_path' => 'node',
     'link_title' => 'Drupal of Things',
     'options' => array(
       'attributes' => array(
-        'title' => 'Drupal of Things management',
+        'title' => '',
       ),
-      'identifier' => 'management_drupal-of-things:<front>',
+      'identifier' => 'management_drupal-of-things:node',
     ),
     'module' => 'menu',
     'hidden' => 0,
-    'external' => 1,
+    'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
     'weight' => -20,

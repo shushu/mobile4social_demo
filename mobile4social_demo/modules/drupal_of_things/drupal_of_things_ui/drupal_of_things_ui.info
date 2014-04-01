@@ -5,4 +5,4 @@ dependencies[] = features
 dependencies[] = menu
 features[features_api][] = api:2
 features[menu_custom][] = management
-features[menu_links][] = management_drupal-of-things:<front>
+features[menu_links][] = management_drupal-of-things:node
