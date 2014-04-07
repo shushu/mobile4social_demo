@@ -1,8 +1,4 @@
 name = Drupal of Things UI
 core = 7.x
 package = Drupal of Things
-dependencies[] = features
-dependencies[] = menu
 features[features_api][] = api:2
-features[menu_custom][] = management
-features[menu_links][] = management_drupal-of-things:node
