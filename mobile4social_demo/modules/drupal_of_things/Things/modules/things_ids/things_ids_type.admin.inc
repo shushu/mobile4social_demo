@@ -44,7 +44,6 @@ function things_ids_type_form($form, &$form_state, $things_ids_type, $op = 'edit
     '#type' => 'machine_name',
     '#default_value' => isset($things_ids_type->type) ? $things_ids_type->type : '',
     '#maxlength' => 32,
-//    '#disabled' => $things_ids_type->isLocked() && $op != 'clone',
     '#machine_name' => array(
       'exists' => 'things_ids_get_types',
       'source' => array('label'),
@@ -59,16 +58,6 @@ function things_ids_type_form($form, &$form_state, $things_ids_type, $op = 'edit
     '#weight' => 40,
   );
 
-  //Locking not supported yet
-  /*if (!$things_ids_type->isLocked() && $op != 'add') {
-    $form['actions']['delete'] = array(
-      '#type' => 'submit',
-      '#value' => t('Delete Things Identifier type'),
-      '#weight' => 45,
-      '#limit_validation_errors' => array(),
-      '#submit' => array('things_ids_type_form_submit_delete')
-    );
-  }*/
   return $form;
 }
 
