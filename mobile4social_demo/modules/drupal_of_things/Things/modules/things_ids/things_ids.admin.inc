@@ -204,7 +204,7 @@ function things_ids_edit_form($form, &$form_state, $things_ids) {
     $form['actions']['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Delete things_ids'),
-      '#suffix' => l(t('Cancel'), 'admin/content/things_ids'),
+      '#suffix' => l(t('Cancel'), 'admin/drupal_of_things/identifiers'),
       '#submit' => $submit + array('things_ids_form_submit_delete'),
       '#weight' => 45,
     );
@@ -246,7 +246,7 @@ function things_ids_edit_form_submit(&$form, &$form_state) {
   $things_ids->changed = time();
   
   $things_ids->save();
-  $form_state['redirect'] = 'admin/content/things_ids';
+  $form_state['redirect'] = 'admin/drupal_of_things/identifiers';
 }
 
 /**
@@ -255,7 +255,7 @@ function things_ids_edit_form_submit(&$form, &$form_state) {
  * @todo Remove hard-coded path
  */
 function things_ids_form_submit_delete(&$form, &$form_state) {
-  $form_state['redirect'] = 'admin/content/things_ids/things_ids/' . $form_state['things_ids']->things_ids_id . '/delete';
+  $form_state['redirect'] = 'admin/drupal_of_things/identifiers/things_ids/' . $form_state['things_ids']->things_ids_id . '/delete';
 }
 
 
@@ -274,7 +274,7 @@ function things_ids_delete_form($form, &$form_state, $things_ids) {
 
   $form = confirm_form($form,
     t('Are you sure you want to delete things_ids %token?', array('%token' => $things_ids->token)),
-    'admin/content/things_ids/things_ids',
+    'admin/drupal_of_things/identifiers/things_ids',
     '<p>' . t('This action cannot be undone.') . '</p>',
     t('Delete'),
     t('Cancel'),
@@ -295,7 +295,7 @@ function things_ids_delete_form_submit($form, &$form_state) {
   drupal_set_message(t('The things_ids %token has been deleted.', array('%token' => $things_ids->token)));
   watchdog('things_ids', 'Deleted Things Identifier %token.', array('%token' => $things_ids->token));
 
-  $form_state['redirect'] = 'admin/content/things_ids';
+  $form_state['redirect'] = 'admin/drupal_of_things/identifiers';
 }
 
 
@@ -350,8 +350,8 @@ function things_ids_set_breadcrumb() {
   $breadcrumb = array(
     l(t('Home'), '<front>'),
     l(t('Administration'), 'admin'),
-    l(t('Content'), 'admin/content'),
-    l(t('Things Identifiers'), 'admin/content/things_ids'),
+    l(t('Drupal of Things'), 'admin/drupal_of_things'),
+    l(t('Identifiers'), 'admin/drupal_of_things/identifiers'),
   );
 
   drupal_set_breadcrumb($breadcrumb);

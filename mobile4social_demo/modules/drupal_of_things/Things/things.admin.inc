@@ -204,7 +204,7 @@ function things_edit_form($form, &$form_state, $things) {
     $form['actions']['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Delete things'),
-      '#suffix' => l(t('Cancel'), 'admin/content/things'),
+      '#suffix' => l(t('Cancel'), 'admin/drupal_of_things'),
       '#submit' => $submit + array('things_form_submit_delete'),
       '#weight' => 45,
     );
@@ -246,7 +246,7 @@ function things_edit_form_submit(&$form, &$form_state) {
   $things->changed = time();
   
   $things->save();
-  $form_state['redirect'] = 'admin/content/things';
+  $form_state['redirect'] = 'admin/drupal_of_things';
 }
 
 /**
@@ -255,7 +255,7 @@ function things_edit_form_submit(&$form, &$form_state) {
  * @todo Remove hard-coded path
  */
 function things_form_submit_delete(&$form, &$form_state) {
-  $form_state['redirect'] = 'admin/content/things/things/' . $form_state['things']->things_id . '/delete';
+  $form_state['redirect'] = 'admin/drupal_of_things/' . $form_state['things']->things_id . '/delete';
 }
 
 
@@ -274,7 +274,7 @@ function things_delete_form($form, &$form_state, $things) {
 
   $form = confirm_form($form,
     t('Are you sure you want to delete things %name?', array('%name' => $things->name)),
-    'admin/content/things/things',
+    'admin/drupal_of_things',
     '<p>' . t('This action cannot be undone.') . '</p>',
     t('Delete'),
     t('Cancel'),
@@ -295,7 +295,7 @@ function things_delete_form_submit($form, &$form_state) {
   drupal_set_message(t('The things %name has been deleted.', array('%name' => $things->name)));
   watchdog('things', 'Deleted things %name.', array('%name' => $things->name));
 
-  $form_state['redirect'] = 'admin/content/things';
+  $form_state['redirect'] = 'admin/drupal_of_things';
 }
 
 
@@ -350,8 +350,7 @@ function things_set_breadcrumb() {
   $breadcrumb = array(
     l(t('Home'), '<front>'),
     l(t('Administration'), 'admin'),
-    l(t('Content'), 'admin/content'),
-    l(t('Things'), 'admin/content/things'),
+    l(t('Things'), 'admin/drupal_of_things'),
   );
 
   drupal_set_breadcrumb($breadcrumb);

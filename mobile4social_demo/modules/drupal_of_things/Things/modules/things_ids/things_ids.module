@@ -41,7 +41,7 @@ function things_ids_entity_info() {
     'module' => 'things_ids',
     // The information below is used by the things_idsUIController (which extends the EntityDefaultUIController)
     'admin ui' => array(
-      'path' => 'admin/content/things_ids',
+      'path' => 'admin/drupal_of_things/identifiers',
       'file' => 'things_ids.admin.inc',
       'controller class' => 'things_idsUIController',
       'menu wildcard' => '%things_ids',
@@ -352,8 +352,8 @@ function things_ids_theme() {
  */
 function things_ids_menu_local_tasks_alter(&$data, $router_item, $root_path) {
   // Add action link 'admin/drupal_of_things/configuration/things_ids/add' on 'admin/structure/things_ids'.
-  if ($root_path == 'admin/content/things_ids') {
-    $item = menu_get_item('admin/content/things_ids/add');
+  if ($root_path == 'admin/drupal_of_things/identifiers') {
+    $item = menu_get_item('admin/drupal_of_things/identifiers/add');
     if ($item['access']) {
       $data['actions']['output'][] = array(
         '#theme' => 'menu_local_action',

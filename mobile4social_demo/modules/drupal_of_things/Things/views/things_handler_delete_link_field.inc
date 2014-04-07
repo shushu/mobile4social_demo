@@ -26,6 +26,6 @@ class things_handler_delete_link_field extends things_handler_link_field {
     $text = !empty($this->options['text']) ? $this->options['text'] : t('delete');
     $things_id = $values->{$this->aliases['things_id']};
     
-    return l($text, 'admin/content/things/things/' . $things_id . '/delete');
+    return l($text, 'admin/drupal_of_things/things/' . $things_id . '/delete');
   }
 }
