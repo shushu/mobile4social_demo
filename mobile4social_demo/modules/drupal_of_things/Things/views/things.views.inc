@@ -202,14 +202,17 @@ function things_views_default_views() {
   
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'things_admin_page');
-  $handler->display->display_options['path'] = 'admin/content/things/list';
+  $handler->display->display_options['path'] = 'admin/drupal_of_things/things';
   $handler->display->display_options['menu']['type'] = 'default tab';
-  $handler->display->display_options['menu']['title'] = 'List';
-  $handler->display->display_options['menu']['weight'] = '-10';
-  $handler->display->display_options['tab_options']['type'] = 'tab';
-  $handler->display->display_options['tab_options']['title'] = 'Things';
+  $handler->display->display_options['menu']['title'] = 'Things';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'management';
+  $handler->display->display_options['menu']['context'] = '0';
+  $handler->display->display_options['menu']['context_only_inline'] = '0';
+  $handler->display->display_options['tab_options']['type'] = 'normal';
+  $handler->display->display_options['tab_options']['title'] = 'Drupal of Things';
   $handler->display->display_options['tab_options']['description'] = 'Manage things';
-  $handler->display->display_options['tab_options']['weight'] = '0';
+  $handler->display->display_options['tab_options']['weight'] = '-20';
   $handler->display->display_options['tab_options']['name'] = 'management';
   $translatables['things'] = array(
     t('Master'),

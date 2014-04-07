@@ -206,12 +206,17 @@ function things_ids_views_default_views() {
   
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'things_ids_admin_page');
-  $handler->display->display_options['path'] = 'admin/content/things_ids/list';
-  $handler->display->display_options['menu']['type'] = 'default tab';
-  $handler->display->display_options['menu']['title'] = 'List';
-  $handler->display->display_options['menu']['weight'] = '-10';
-  $handler->display->display_options['tab_options']['type'] = 'tab';
-  $handler->display->display_options['tab_options']['title'] = 'Things Identifiers';
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Identifiers';
+  $handler->display->display_options['path'] = 'admin/drupal_of_things/identifiers';
+  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['menu']['title'] = 'Identifiers';
+  $handler->display->display_options['menu']['weight'] = '10';
+  $handler->display->display_options['menu']['name'] = 'management';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $handler->display->display_options['tab_options']['type'] = 'normal';
+  $handler->display->display_options['tab_options']['title'] = 'Identifiers';
   $handler->display->display_options['tab_options']['description'] = 'Manage Things Identifiers';
   $handler->display->display_options['tab_options']['weight'] = '0';
   $handler->display->display_options['tab_options']['name'] = 'management';
