@@ -65,7 +65,7 @@ function things_ids_entity_info() {
     'module' => 'things_ids',
     // Enable the entity API's admin UI.
     'admin ui' => array(
-      'path' => 'admin/structure/things_ids_types',
+      'path' => 'admin/drupal_of_things/configuration/identifiers_types',
       'file' => 'things_ids_type.admin.inc',
       'controller class' => 'things_idsTypeUIController',
     ),
@@ -88,8 +88,8 @@ function things_ids_entity_info_alter(&$entity_info) {
     $entity_info['things_ids']['bundles'][$type] = array(
       'label' => $info->label,
       'admin' => array(
-        'path' => 'admin/structure/things_ids_types/manage/%things_ids_type',
-        'real path' => 'admin/structure/things_ids_types/manage/' . $type,
+        'path' => 'admin/drupal_of_things/configuration/identifiers_types/manage/%things_ids_type',
+        'real path' => 'admin/drupal_of_things/configuration/identifiers_types/manage/' . $type,
         'bundle argument' => 4,
         'access arguments' => array('administer things_ids types'),
       ),
@@ -351,7 +351,7 @@ function things_ids_theme() {
  * Implements hook_menu_local_tasks_alter().
  */
 function things_ids_menu_local_tasks_alter(&$data, $router_item, $root_path) {
-  // Add action link 'admin/structure/things_ids/add' on 'admin/structure/things_ids'.
+  // Add action link 'admin/drupal_of_things/configuration/things_ids/add' on 'admin/structure/things_ids'.
   if ($root_path == 'admin/content/things_ids') {
     $item = menu_get_item('admin/content/things_ids/add');
     if ($item['access']) {

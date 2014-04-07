@@ -329,7 +329,7 @@ function theme_things_add_list($variables) {
   }
   else {
     if (user_access('administer things types')) {
-      $output = '<p>' . t('Things Entities cannot be added because you have not created any things types yet. Go to the <a href="@create-things-type">things type creation page</a> to add a new things type.', array('@create-things-type' => url('admin/structure/things_types/add'))) . '</p>';
+      $output = '<p>' . t('Things Entities cannot be added because you have not created any things types yet. Go to the <a href="@create-things-type">things type creation page</a> to add a new things type.', array('@create-things-type' => url('admin/drupal_of_things/configuration/things_types/add'))) . '</p>';
     }
     else {
       $output = '<p>' . t('No things types have been created yet for you to use.') . '</p>';
