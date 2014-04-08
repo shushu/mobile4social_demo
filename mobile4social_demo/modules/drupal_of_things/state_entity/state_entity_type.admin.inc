@@ -67,12 +67,12 @@ function state_entity_type_form($form, &$form_state, $state_entity_type, $op = '
 function state_entity_type_form_submit(&$form, &$form_state) {
   $state_entity_type = entity_ui_form_submit_build_entity($form, $form_state);
   $state_entity_type->save();
-  $form_state['redirect'] = 'admin/structure/state_entity_types';
+  $form_state['redirect'] = 'admin/drupal-of-things/configuration/state-entity-types';
 }
 
 /**
  * Form API submit callback for the delete button.
  */
 function state_entity_type_form_submit_delete(&$form, &$form_state) {
-  $form_state['redirect'] = 'admin/structure/state_entity_types/manage/' . $form_state['state_entity_type']->type . '/delete';
+  $form_state['redirect'] = 'admin/drupal-of-things/configuration/state-entity-types/manage/' . $form_state['state_entity_type']->type . '/delete';
 }

@@ -64,7 +64,7 @@ class state_entityUIController extends EntityDefaultUIController {
     }
 
     // Loading and editing state_entity entities
-    $items[$this->path . '/state_entity/' . $wildcard] = array(
+    $items[$this->path . '/state-entity/' . $wildcard] = array(
       'page callback' => 'state_entity_form_wrapper',
       'page arguments' => array($id_count + 1),
       'access callback' => 'state_entity_access',
@@ -74,14 +74,14 @@ class state_entityUIController extends EntityDefaultUIController {
       'file' => 'state_entity.admin.inc',
       'file path' => drupal_get_path('module', $this->entityInfo['module'])
     );
-    $items[$this->path . '/state_entity/' . $wildcard . '/edit'] = array(
+    $items[$this->path . '/state-entity/' . $wildcard . '/edit'] = array(
       'title' => 'Edit',
       'type' => MENU_DEFAULT_LOCAL_TASK,
       'weight' => -10,
       'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
     );
     
-    $items[$this->path . '/state_entity/' . $wildcard . '/delete'] = array(
+    $items[$this->path . '/state-entity/' . $wildcard . '/delete'] = array(
       'title' => 'Delete',
       'page callback' => 'state_entity_delete_form_wrapper',
       'page arguments' => array($id_count + 1),
@@ -195,7 +195,7 @@ function state_entity_edit_form($form, &$form_state, $state_entity) {
     $form['actions']['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Delete state entity'),
-      '#suffix' => l(t('Cancel'), 'admin/content/state_entity'),
+      '#suffix' => l(t('Cancel'), 'admin/drupal-of-things/state-entity'),
       '#submit' => $submit + array('state_entity_form_submit_delete'),
       '#weight' => 45,
     );
@@ -240,7 +240,7 @@ function state_entity_edit_form_submit(&$form, &$form_state) {
   $state_entity->uid = $user->uid;
 
   $state_entity->save();
-  $form_state['redirect'] = 'admin/content/state_entity';
+  $form_state['redirect'] = 'admin/drupal-of-things/state-entity';
 }
 
 /**
@@ -249,7 +249,7 @@ function state_entity_edit_form_submit(&$form, &$form_state) {
  * @todo Remove hard-coded path
  */
 function state_entity_form_submit_delete(&$form, &$form_state) {
-  $form_state['redirect'] = 'admin/content/state_entity/state_entity/' . $form_state['state_entity']->state_entity_id . '/delete';
+  $form_state['redirect'] = 'admin/drupal-of-things/state-entity/state_entity/' . $form_state['state_entity']->state_entity_id . '/delete';
 }
 
 
@@ -268,7 +268,7 @@ function state_entity_delete_form($form, &$form_state, $state_entity) {
 
   $form = confirm_form($form,
     t('Are you sure you want to delete state_entity?'),
-    'admin/content/state_entity/state_entity',
+    'admin/drupal-of-things/state-entity/state-entity',
     '<p>' . t('This action cannot be undone.') . '</p>',
     t('Delete'),
     t('Cancel'),
@@ -289,7 +289,7 @@ function state_entity_delete_form_submit($form, &$form_state) {
   drupal_set_message(t('The state_entity has been deleted.'));
   watchdog('state_entity', 'Deleted State Entity.');
 
-  $form_state['redirect'] = 'admin/content/state_entity';
+  $form_state['redirect'] = 'admin/drupal-of-things/state-entity';
 }
 
 
@@ -323,7 +323,7 @@ function theme_state_entity_add_list($variables) {
   }
   else {
     if (user_access('administer state entity types')) {
-      $output = '<p>' . t('State Entity Entities cannot be added because you have not created any State Entity types yet. Go to the <a href="@create-state_entity-type">state_entity type creation page</a> to add a new State Entity type.', array('@create-state_entity-type' => url('admin/structure/state_entity_types/add'))) . '</p>';
+      $output = '<p>' . t('State Entity Entities cannot be added because you have not created any State Entity types yet. Go to the <a href="@create-state_entity-type">state_entity type creation page</a> to add a new State Entity type.', array('@create-state_entity-type' => url('admin/drupal-of-things/configuration/state-entity-types/add'))) . '</p>';
     }
     else {
       $output = '<p>' . t('No State Entity types have been created yet for you to use.') . '</p>';
@@ -345,7 +345,7 @@ function state_entity_set_breadcrumb() {
     l(t('Home'), '<front>'),
     l(t('Administration'), 'admin'),
     l(t('Content'), 'admin/content'),
-    l(t('State Entity'), 'admin/content/state_entity'),
+    l(t('State Entity'), 'admin/drupal-of-things/state-entity'),
   );
 
   drupal_set_breadcrumb($breadcrumb);

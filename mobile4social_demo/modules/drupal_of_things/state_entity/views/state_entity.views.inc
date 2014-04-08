@@ -33,7 +33,7 @@ function state_entity_views_data_alter(&$data) {
     ),
   );
   // This content of this field are decided based on the menu structure that
-  // follows state_entity/state_entity/%state_entity_id/op
+  // follows state_entity/state-entity/%state_entity_id/op
   $data['state_entity']['operations'] = array(
     'field' => array(
       'title' => t('Operations links'),
@@ -180,7 +180,7 @@ function state_entity_views_default_views() {
   
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'state_entity_admin_page');
-  $handler->display->display_options['path'] = 'admin/content/state_entity/list';
+  $handler->display->display_options['path'] = 'admin/drupal-of-things/state-entity/list';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'List';
   $handler->display->display_options['menu']['weight'] = '-10';

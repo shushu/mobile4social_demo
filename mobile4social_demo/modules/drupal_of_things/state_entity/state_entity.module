@@ -44,7 +44,7 @@ function state_entity_entity_info() {
     'module' => 'state_entity',
     // The information below is used by the state_entityUIController (which extends the EntityDefaultUIController)
     'admin ui' => array(
-      'path' => 'admin/content/state_entity',
+      'path' => 'admin/drupal-of-things/state-entity',
       'file' => 'state_entity.admin.inc',
       'controller class' => 'state_entityUIController',
       'menu wildcard' => '%state_entity',
@@ -68,7 +68,7 @@ function state_entity_entity_info() {
     'module' => 'state_entity',
     // Enable the entity API's admin UI.
     'admin ui' => array(
-      'path' => 'admin/structure/state_entity_types',
+      'path' => 'admin/drupal-of-things/configuration/state-entity-types',
       'file' => 'state_entity_type.admin.inc',
       'controller class' => 'state_entityTypeUIController',
     ),
@@ -91,8 +91,8 @@ function state_entity_entity_info_alter(&$entity_info) {
     $entity_info['state_entity']['bundles'][$type] = array(
       'label' => $info->label,
       'admin' => array(
-        'path' => 'admin/structure/state_entity_types/manage/%state_entity_type',
-        'real path' => 'admin/structure/state_entity_types/manage/' . $type,
+        'path' => 'admin/drupal-of-things/configuration/state-entity-types/manage/%state_entity_type',
+        'real path' => 'admin/drupal-of-things/configuration/state-entity-types/manage/' . $type,
         'bundle argument' => 4,
         'access arguments' => array('administer state entity types'),
       ),
@@ -403,9 +403,9 @@ function state_entity_theme() {
  * Implements hook_menu_local_tasks_alter().
  */
 function state_entity_menu_local_tasks_alter(&$data, $router_item, $root_path) {
-  // Add action link 'admin/structure/state_entity/add' on 'admin/structure/state_entity'.
-  if ($root_path == 'admin/content/state_entity') {
-    $item = menu_get_item('admin/content/state_entity/add');
+  // Add action link 'admin/drupal-of-things/configuration/state-entity/add' on 'admin/drupal-of-things/configuration/state-entity'.
+  if ($root_path == 'admin/drupal-of-things/state-entity') {
+    $item = menu_get_item('admin/drupal-of-things/state-entity/add');
     if ($item['access']) {
       $data['actions']['output'][] = array(
         '#theme' => 'menu_local_action',

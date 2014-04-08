@@ -18,7 +18,7 @@ class state_entity_handler_state_entity_operations_field extends views_handler_f
 
   function render($values) {
 
-    $links = menu_contextual_links('state_entity', 'admin/content/state_entity/state_entity', array($this->get_value($values, 'state_entity_id')));
+    $links = menu_contextual_links('state_entity', 'admin/drupal-of-things/state-entity/state-entity', array($this->get_value($values, 'state_entity_id')));
     
     if (!empty($links)) {
       return theme('links', array('links' => $links, 'attributes' => array('class' => array('links', 'inline', 'operations'))));

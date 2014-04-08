@@ -26,6 +26,6 @@ class state_entity_handler_edit_link_field extends state_entity_handler_link_fie
     $text = !empty($this->options['text']) ? $this->options['text'] : t('edit');
     $state_entity_id = $values->{$this->aliases['state_entity_id']};
     
-    return l($text, 'admin/content/state_entity/state_entity/' . $state_entity_id . '/edit');
+    return l($text, 'admin/drupal-of-things/state-entity/state_entity/' . $state_entity_id . '/edit');
   }
 }
