@@ -45,6 +45,15 @@ function things_menu() {
 }
 
 /**
+ * Implements hook_menu_alter(). Move GCM settings into drupal-of-things.
+ */
+function things_menu_alter(&$items) {
+  $gcm_settings = $items['admin/config/workflow/gcm/settings'];
+  unset($items['admin/config/workflow/gcm/settings']);
+  $items['admin/drupal-of-things/configuration/gcm'] = $gcm_settings;
+}
+
+/**
  * Provide a single block from the administration menu as a page.
  *
  * This function is often a destination for these blocks.
