@@ -329,7 +329,7 @@ function theme_things_ids_add_list($variables) {
   }
   else {
     if (user_access('administer things_ids types')) {
-      $output = '<p>' . t('Things Identifiers Entities cannot be added because you have not created any Things Identifier types yet. Go to the <a href="@create-things_ids-type">things_ids type creation page</a> to add a new Things Identifier type.', array('@create-things_ids-type' => url('admin/drupal-of-things/configuration/identifiers_types/add'))) . '</p>';
+      $output = '<p>' . t('Things Identifiers Entities cannot be added because you have not created any Things Identifier types yet. Go to the <a href="@create-things_ids-type">things_ids type creation page</a> to add a new Things Identifier type.', array('@create-things_ids-type' => url('admin/drupal-of-things/configuration/identifiers-types/add'))) . '</p>';
     }
     else {
       $output = '<p>' . t('No Things Identifier types have been created yet for you to use.') . '</p>';

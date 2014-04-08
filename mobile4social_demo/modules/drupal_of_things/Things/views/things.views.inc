@@ -212,7 +212,7 @@ function things_views_default_views() {
   $handler->display->display_options['tab_options']['type'] = 'normal';
   $handler->display->display_options['tab_options']['title'] = 'Drupal of Things';
   $handler->display->display_options['tab_options']['description'] = 'Manage things';
-  $handler->display->display_options['tab_options']['weight'] = '-20';
+  $handler->display->display_options['tab_options']['weight'] = '0';
   $handler->display->display_options['tab_options']['name'] = 'management';
   $translatables['things'] = array(
     t('Master'),

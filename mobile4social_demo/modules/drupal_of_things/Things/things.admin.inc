@@ -204,7 +204,7 @@ function things_edit_form($form, &$form_state, $things) {
     $form['actions']['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Delete things'),
-      '#suffix' => l(t('Cancel'), 'admin/drupal-of-things'),
+      '#suffix' => l(t('Cancel'), 'admin/drupal-of-things/things'),
       '#submit' => $submit + array('things_form_submit_delete'),
       '#weight' => 45,
     );
@@ -246,7 +246,7 @@ function things_edit_form_submit(&$form, &$form_state) {
   $things->changed = time();
   
   $things->save();
-  $form_state['redirect'] = 'admin/drupal-of-things';
+  $form_state['redirect'] = 'admin/drupal-of-things/things';
 }
 
 /**
@@ -274,7 +274,7 @@ function things_delete_form($form, &$form_state, $things) {
 
   $form = confirm_form($form,
     t('Are you sure you want to delete things %name?', array('%name' => $things->name)),
-    'admin/drupal-of-things',
+    'admin/drupal-of-things/things',
     '<p>' . t('This action cannot be undone.') . '</p>',
     t('Delete'),
     t('Cancel'),
@@ -295,7 +295,7 @@ function things_delete_form_submit($form, &$form_state) {
   drupal_set_message(t('The things %name has been deleted.', array('%name' => $things->name)));
   watchdog('things', 'Deleted things %name.', array('%name' => $things->name));
 
-  $form_state['redirect'] = 'admin/drupal-of-things';
+  $form_state['redirect'] = 'admin/drupal-of-things/things';
 }
 
 
@@ -329,7 +329,7 @@ function theme_things_add_list($variables) {
   }
   else {
     if (user_access('administer things types')) {
-      $output = '<p>' . t('Things Entities cannot be added because you have not created any things types yet. Go to the <a href="@create-things-type">things type creation page</a> to add a new things type.', array('@create-things-type' => url('admin/drupal-of-things/configuration/things_types/add'))) . '</p>';
+      $output = '<p>' . t('Things Entities cannot be added because you have not created any things types yet. Go to the <a href="@create-things-type">things type creation page</a> to add a new things type.', array('@create-things-type' => url('admin/drupal-of-things/configuration/things-types/add'))) . '</p>';
     }
     else {
       $output = '<p>' . t('No things types have been created yet for you to use.') . '</p>';
@@ -350,7 +350,7 @@ function things_set_breadcrumb() {
   $breadcrumb = array(
     l(t('Home'), '<front>'),
     l(t('Administration'), 'admin'),
-    l(t('Things'), 'admin/drupal-of-things'),
+    l(t('Things'), 'admin/drupal-of-things/things'),
   );
 
   drupal_set_breadcrumb($breadcrumb);

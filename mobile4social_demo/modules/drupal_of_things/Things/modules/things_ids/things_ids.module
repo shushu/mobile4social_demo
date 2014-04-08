@@ -65,7 +65,7 @@ function things_ids_entity_info() {
     'module' => 'things_ids',
     // Enable the entity API's admin UI.
     'admin ui' => array(
-      'path' => 'admin/drupal-of-things/configuration/identifiers_types',
+      'path' => 'admin/drupal-of-things/configuration/identifiers-types',
       'file' => 'things_ids_type.admin.inc',
       'controller class' => 'things_idsTypeUIController',
     ),
@@ -88,8 +88,8 @@ function things_ids_entity_info_alter(&$entity_info) {
     $entity_info['things_ids']['bundles'][$type] = array(
       'label' => $info->label,
       'admin' => array(
-        'path' => 'admin/drupal-of-things/configuration/identifiers_types/manage/%things_ids_type',
-        'real path' => 'admin/drupal-of-things/configuration/identifiers_types/manage/' . $type,
+        'path' => 'admin/drupal-of-things/configuration/identifiers-types/manage/%things_ids_type',
+        'real path' => 'admin/drupal-of-things/configuration/identifiers-types/manage/' . $type,
         'bundle argument' => 4,
         'access arguments' => array('administer things_ids types'),
       ),
