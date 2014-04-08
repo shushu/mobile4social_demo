@@ -249,7 +249,7 @@ function state_entity_edit_form_submit(&$form, &$form_state) {
  * @todo Remove hard-coded path
  */
 function state_entity_form_submit_delete(&$form, &$form_state) {
-  $form_state['redirect'] = 'admin/drupal-of-things/state-entity/state_entity/' . $form_state['state_entity']->state_entity_id . '/delete';
+  $form_state['redirect'] = 'admin/drupal-of-things/state-entity/state-entity/' . $form_state['state_entity']->state_entity_id . '/delete';
 }
 
 

@@ -26,6 +26,6 @@ class state_entity_handler_delete_link_field extends state_entity_handler_link_f
     $text = !empty($this->options['text']) ? $this->options['text'] : t('delete');
     $state_entity_id = $values->{$this->aliases['state_entity_id']};
     
-    return l($text, 'admin/drupal-of-things/state-entity/state_entity/' . $state_entity_id . '/delete');
+    return l($text, 'admin/drupal-of-things/state-entity/state-entity/' . $state_entity_id . '/delete');
   }
 }
