@@ -204,7 +204,7 @@ function things_ids_edit_form($form, &$form_state, $things_ids) {
     $form['actions']['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Delete things_ids'),
-      '#suffix' => l(t('Cancel'), 'admin/drupal_of_things/identifiers'),
+      '#suffix' => l(t('Cancel'), 'admin/drupal-of-things/identifiers'),
       '#submit' => $submit + array('things_ids_form_submit_delete'),
       '#weight' => 45,
     );
@@ -246,7 +246,7 @@ function things_ids_edit_form_submit(&$form, &$form_state) {
   $things_ids->changed = time();
   
   $things_ids->save();
-  $form_state['redirect'] = 'admin/drupal_of_things/identifiers';
+  $form_state['redirect'] = 'admin/drupal-of-things/identifiers';
 }
 
 /**
@@ -255,7 +255,7 @@ function things_ids_edit_form_submit(&$form, &$form_state) {
  * @todo Remove hard-coded path
  */
 function things_ids_form_submit_delete(&$form, &$form_state) {
-  $form_state['redirect'] = 'admin/drupal_of_things/identifiers/things_ids/' . $form_state['things_ids']->things_ids_id . '/delete';
+  $form_state['redirect'] = 'admin/drupal-of-things/identifiers/things_ids/' . $form_state['things_ids']->things_ids_id . '/delete';
 }
 
 
@@ -274,7 +274,7 @@ function things_ids_delete_form($form, &$form_state, $things_ids) {
 
   $form = confirm_form($form,
     t('Are you sure you want to delete things_ids %token?', array('%token' => $things_ids->token)),
-    'admin/drupal_of_things/identifiers/things_ids',
+    'admin/drupal-of-things/identifiers/things_ids',
     '<p>' . t('This action cannot be undone.') . '</p>',
     t('Delete'),
     t('Cancel'),
@@ -295,7 +295,7 @@ function things_ids_delete_form_submit($form, &$form_state) {
   drupal_set_message(t('The things_ids %token has been deleted.', array('%token' => $things_ids->token)));
   watchdog('things_ids', 'Deleted Things Identifier %token.', array('%token' => $things_ids->token));
 
-  $form_state['redirect'] = 'admin/drupal_of_things/identifiers';
+  $form_state['redirect'] = 'admin/drupal-of-things/identifiers';
 }
 
 
@@ -329,7 +329,7 @@ function theme_things_ids_add_list($variables) {
   }
   else {
     if (user_access('administer things_ids types')) {
-      $output = '<p>' . t('Things Identifiers Entities cannot be added because you have not created any Things Identifier types yet. Go to the <a href="@create-things_ids-type">things_ids type creation page</a> to add a new Things Identifier type.', array('@create-things_ids-type' => url('admin/drupal_of_things/configuration/identifiers_types/add'))) . '</p>';
+      $output = '<p>' . t('Things Identifiers Entities cannot be added because you have not created any Things Identifier types yet. Go to the <a href="@create-things_ids-type">things_ids type creation page</a> to add a new Things Identifier type.', array('@create-things_ids-type' => url('admin/drupal-of-things/configuration/identifiers_types/add'))) . '</p>';
     }
     else {
       $output = '<p>' . t('No Things Identifier types have been created yet for you to use.') . '</p>';
@@ -351,7 +351,7 @@ function things_ids_set_breadcrumb() {
     l(t('Home'), '<front>'),
     l(t('Administration'), 'admin'),
     l(t('Drupal of Things'), 'admin/drupal_of_things'),
-    l(t('Identifiers'), 'admin/drupal_of_things/identifiers'),
+    l(t('Identifiers'), 'admin/drupal-of-things/identifiers'),
   );
 
   drupal_set_breadcrumb($breadcrumb);

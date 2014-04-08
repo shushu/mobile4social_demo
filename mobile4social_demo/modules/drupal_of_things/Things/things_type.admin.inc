@@ -78,12 +78,12 @@ function things_type_form($form, &$form_state, $things_type, $op = 'edit') {
 function things_type_form_submit(&$form, &$form_state) {
   $things_type = entity_ui_form_submit_build_entity($form, $form_state);
   $things_type->save();
-  $form_state['redirect'] = 'admin/drupal_of_things/configuration/things_types';
+  $form_state['redirect'] = 'admin/drupal-of-things/configuration/things_types';
 }
 
 /**
  * Form API submit callback for the delete button.
  */
 function things_type_form_submit_delete(&$form, &$form_state) {
-  $form_state['redirect'] = 'admin/drupal_of_things/configuration/things_types/manage/' . $form_state['things_type']->type . '/delete';
+  $form_state['redirect'] = 'admin/drupal-of-things/configuration/things_types/manage/' . $form_state['things_type']->type . '/delete';
 }

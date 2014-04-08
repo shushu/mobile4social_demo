@@ -208,7 +208,7 @@ function things_ids_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'things_ids_admin_page');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Identifiers';
-  $handler->display->display_options['path'] = 'admin/drupal_of_things/identifiers';
+  $handler->display->display_options['path'] = 'admin/drupal-of-things/identifiers';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Identifiers';
   $handler->display->display_options['menu']['weight'] = '10';

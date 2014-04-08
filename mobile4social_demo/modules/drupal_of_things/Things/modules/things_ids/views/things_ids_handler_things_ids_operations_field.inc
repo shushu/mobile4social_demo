@@ -18,7 +18,7 @@ class things_ids_handler_things_ids_operations_field extends views_handler_field
 
   function render($values) {
 
-    $links = menu_contextual_links('things_ids', 'admin/drupal_of_things/identifiers/things_ids', array($this->get_value($values, 'things_ids_id')));
+    $links = menu_contextual_links('things_ids', 'admin/drupal-of-things/identifiers/things_ids', array($this->get_value($values, 'things_ids_id')));
     
     if (!empty($links)) {
       return theme('links', array('links' => $links, 'attributes' => array('class' => array('links', 'inline', 'operations'))));

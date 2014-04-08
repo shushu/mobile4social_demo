@@ -67,12 +67,12 @@ function things_ids_type_form($form, &$form_state, $things_ids_type, $op = 'edit
 function things_ids_type_form_submit(&$form, &$form_state) {
   $things_ids_type = entity_ui_form_submit_build_entity($form, $form_state);
   $things_ids_type->save();
-  $form_state['redirect'] = 'admin/drupal_of_things/configuration/identifiers_types';
+  $form_state['redirect'] = 'admin/drupal-of-things/configuration/identifiers_types';
 }
 
 /**
  * Form API submit callback for the delete button.
  */
 function things_ids_type_form_submit_delete(&$form, &$form_state) {
-  $form_state['redirect'] = 'admin/drupal_of_things/configuration/identifiers_types/manage/' . $form_state['things_ids_type']->type . '/delete';
+  $form_state['redirect'] = 'admin/drupal-of-things/configuration/identifiers_types/manage/' . $form_state['things_ids_type']->type . '/delete';
 }

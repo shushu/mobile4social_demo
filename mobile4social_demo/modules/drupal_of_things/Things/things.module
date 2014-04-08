@@ -22,7 +22,38 @@ function things_menu() {
     'type' => MENU_NORMAL_ITEM,
    );
 
+  $items['admin/drupal-of-things/configuration'] = array(
+    'title' => 'Configuration',
+    'description' => 'Settings related to Drupal of Things.',
+    'position' => 'left',
+    'weight' => 10,
+    'page callback' => 'things_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+  );
+
   return $items;
+}
+
+/**
+ * Provide a single block from the administration menu as a page.
+ *
+ * This function is often a destination for these blocks.
+ * For example, 'admin/structure/types' needs to have a destination to be valid
+ * in the Drupal menu system, but too much information there might be
+ * hidden, so we supply the contents of the block.
+ *
+ * @return
+ *   The output HTML.
+ */
+function things_admin_menu_block_page() {
+  $item = menu_get_item();
+  if ($content = system_admin_menu_block($item)) {
+    $output = theme('admin_block_content', array('content' => $content));
+  }
+  else {
+    $output = t('You do not have any administrative items.');
+  }
+  return $output;
 }
 
 function things_admin() {
@@ -118,7 +149,7 @@ function things_entity_info() {
     'module' => 'things',
     // Enable the entity API's admin UI.
     'admin ui' => array(
-      'path' => 'admin/drupal_of_things/configuration/things_types',
+      'path' => 'admin/drupal-of-things/configuration/things_types',
       'file' => 'things_type.admin.inc',
       'controller class' => 'ThingsTypeUIController',
     ),
@@ -141,8 +172,8 @@ function things_entity_info_alter(&$entity_info) {
     $entity_info['things']['bundles'][$type] = array(
       'label' => $info->label,
       'admin' => array(
-        'path' => 'admin/drupal_of_things/configuration/things_types/manage/%things_type',
-        'real path' => 'admin/drupal_of_things/configuration/things_types/manage/' . $type,
+        'path' => 'admin/drupal-of-things/configuration/things_types/manage/%things_type',
+        'real path' => 'admin/drupal-of-things/configuration/things_types/manage/' . $type,
         'bundle argument' => 4,
         'access arguments' => array('administer things types'),
       ),
@@ -414,9 +445,9 @@ function things_theme() {
  * Implements hook_menu_local_tasks_alter().
  */
 function things_menu_local_tasks_alter(&$data, $router_item, $root_path) {
-  // Add action link 'admin/drupal_of_things/configuration/things/add' on 'admin/structure/things'.
+  // Add action link 'admin/drupal-of-things/configuration/things/add' on 'admin/structure/things'.
   if ($root_path == 'admin/drupal_of_things') {
-    $item = menu_get_item('admin/drupal_of_things/add');
+    $item = menu_get_item('admin/drupal-of-things/add');
     if ($item['access']) {
       $data['actions']['output'][] = array(
         '#theme' => 'menu_local_action',

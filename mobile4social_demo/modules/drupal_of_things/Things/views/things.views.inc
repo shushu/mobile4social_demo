@@ -202,7 +202,7 @@ function things_views_default_views() {
   
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'things_admin_page');
-  $handler->display->display_options['path'] = 'admin/drupal_of_things/things';
+  $handler->display->display_options['path'] = 'admin/drupal-of-things/things';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Things';
   $handler->display->display_options['menu']['weight'] = '0';
