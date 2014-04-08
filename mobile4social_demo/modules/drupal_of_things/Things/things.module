@@ -13,12 +13,13 @@ function things_menu() {
 
   $items = array();
 
-  $items['admin/config/workflow/things/settings'] = array(
-    'title' => 'Drupal of Things Settings',
+  $items['admin/drupal-of-things/configuration/settings'] = array(
+    'title' => 'Settings',
     'description' => 'Settings for Drupal of Things',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('things_admin'),
     'access arguments' => array('administer things settings'),
+    'weight' => 20,
     'type' => MENU_NORMAL_ITEM,
    );
 
