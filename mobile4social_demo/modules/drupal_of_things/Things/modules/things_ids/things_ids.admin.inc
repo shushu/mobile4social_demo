@@ -350,7 +350,7 @@ function things_ids_set_breadcrumb() {
   $breadcrumb = array(
     l(t('Home'), '<front>'),
     l(t('Administration'), 'admin'),
-    l(t('Drupal of Things'), 'admin/drupal_of_things'),
+    l(t('Drupal of Things'), 'admin/drupal-of-things'),
     l(t('Identifiers'), 'admin/drupal-of-things/identifiers'),
   );
 

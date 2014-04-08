@@ -125,7 +125,7 @@ function things_entity_info() {
     'module' => 'things',
     // The information below is used by the ThingsUIController (which extends the EntityDefaultUIController)
     'admin ui' => array(
-      'path' => 'admin/drupal_of_things',
+      'path' => 'admin/drupal-of-things',
       'file' => 'things.admin.inc',
       'controller class' => 'ThingsUIController',
       'menu wildcard' => '%things',
@@ -446,7 +446,7 @@ function things_theme() {
  */
 function things_menu_local_tasks_alter(&$data, $router_item, $root_path) {
   // Add action link 'admin/drupal-of-things/configuration/things/add' on 'admin/structure/things'.
-  if ($root_path == 'admin/drupal_of_things') {
+  if ($root_path == 'admin/drupal-of-things') {
     $item = menu_get_item('admin/drupal-of-things/add');
     if ($item['access']) {
       $data['actions']['output'][] = array(
