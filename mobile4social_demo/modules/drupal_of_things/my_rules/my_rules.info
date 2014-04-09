@@ -1,0 +1,8 @@
+name = my rules
+description = Allows users to configure their own rules.
+package = rules
+core = 7.x
+dependencies[] = rules
+configure = my-rules
+
+files[] = my_rules.ui.controller.inc

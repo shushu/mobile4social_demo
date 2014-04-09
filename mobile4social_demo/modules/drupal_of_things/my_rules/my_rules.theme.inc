@@ -1,0 +1,79 @@
+<?php
+
+/**
+ * @file
+ * Contains theme functions.
+ */
+
+/**
+ * Preprocess callback for theme_my_rules_category_icon().
+ */
+function template_preprocess_my_rules_category_icon(&$variables) {
+  $info = array();
+  if (!empty($variables['element']['#category'])) {
+    $info = RulesUICategory::getInfo($variables['element']['#category']);
+  }
+  //load info by module if category is not given
+  elseif (!empty($variables['element']['#module'])) {
+    $info = RulesUICategory::getInfo($variables['element']['#module']);
+  }
+  // Set data attribute as fallback for browser that do not support SVG.
+  if (!empty($info['label'])) {
+    $variables['attributes']['data-symbol'] = substr($info['label'], 0 ,2);
+  }
+  elseif (!empty($variables['element']['#group'])) {
+    $variables['attributes']['data-symbol'] = substr($variables['element']['#group'], 0 ,2);
+  }
+
+  if (isset($info['icon'])) {
+    $base_path = isset($info['icon path']) ? $info['icon path'] : drupal_get_path('module', $info['module']);
+    $variables['icon'] = theme('image', array('path' => $base_path . '/' . $info['icon']));
+  }
+
+  $variables['background_color'] = isset($info['icon background color']) ? $info['icon background color'] : NULL;
+
+  if (isset($variables['icon'])) {
+    $variables['attributes']['class'][] = 'my-rules-icon-file';
+  }
+  elseif (isset($info['icon font class'])) {
+    $variables['attributes']['class'][] = $info['icon font class'];
+    $variables['attributes']['class'][] = 'my-rules-icon-font';
+  }
+  else {
+    // Set the default icon.
+    $variables['attributes']['class'][] = 'my-rules-icon-default';
+  }
+}
+
+/**
+ * Theme function for rules category icons.
+ */
+function theme_my_rules_category_icon(&$variables) {
+  return '<span' . drupal_attributes($variables['attributes']) . '>' . $variables['icon'] . '</span>';
+}
+
+
+/**
+ * Preprocess callback for theme_my_rules_category_info().
+ */
+function template_preprocess_my_rules_category_info(&$variables) {
+  $variables['attributes']['class'][] = 'my-rules-tooltip';
+  $variables['content'] = render($variables['element']['#content']);
+  $variables['item_type'] = $variables['element']['#item_type'];
+
+  $variables['label'] = '';
+  if (!empty($variables['element']['#category'])) {
+    $info = RulesUICategory::getInfo($variables['element']['#category']);
+    $variables['label'] = $info['label'];
+  }
+  elseif (!empty($variables['element']['#group'])) {
+    $variables['label'] = $variables['element']['#group'];
+  }
+}
+
+/**
+ * Theme function for rules category info.
+ */
+function theme_my_rules_category_info(&$variables) {
+  return '<span' . drupal_attributes($variables['attributes']) . '>' . $variables['content'] . '</span>';
+}

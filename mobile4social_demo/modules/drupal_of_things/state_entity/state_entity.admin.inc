@@ -68,7 +68,7 @@ class state_entityUIController extends EntityDefaultUIController {
       'page callback' => 'state_entity_form_wrapper',
       'page arguments' => array($id_count + 1),
       'access callback' => 'state_entity_access',
-      'access arguments' => array('edit', $id_count + 1, $type),
+      'access arguments' => array('edit', $id_count + 1),
       'weight' => 0,
       'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
       'file' => 'state_entity.admin.inc',
@@ -86,7 +86,7 @@ class state_entityUIController extends EntityDefaultUIController {
       'page callback' => 'state_entity_delete_form_wrapper',
       'page arguments' => array($id_count + 1),
       'access callback' => 'state_entity_access',
-      'access arguments' => array('edit', $id_count + 1, $type),
+      'access arguments' => array('edit', $id_count + 1),
       'type' => MENU_LOCAL_TASK,
       'context' => MENU_CONTEXT_INLINE,
       'weight' => 10,
@@ -102,7 +102,7 @@ class state_entityUIController extends EntityDefaultUIController {
       'page callback' => 'state_entity_page_view',
       'page arguments' => array(1),
       'access callback' => 'state_entity_access',
-      'access arguments' => array('view', 1, $type),
+      'access arguments' => array('view', 1),
       'type' => MENU_CALLBACK,
     );
     return $items;
