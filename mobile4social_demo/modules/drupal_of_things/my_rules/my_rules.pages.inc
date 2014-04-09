@@ -13,8 +13,14 @@ function my_rules_overview_page_current_user() {
   if ($user->uid) {
     // Adjust my-rules/page/X pages to my-rules/CURRENT_UID/page/X.
     $arg = arg(1);
-    $path = str_replace("my-rules/$arg", "my-rules/$user->uid/$arg", current_path());
-    menu_set_active_item($path);
+    if ($arg) {
+      $path = str_replace("my-rules/$arg", "my-rules/$user->uid/$arg", current_path());
+      menu_set_active_item($path);
+    }
+    else {
+      $path = str_replace("my-rules", "my-rules/$user->uid", current_path());
+      menu_set_active_item($path);
+    }
     return menu_execute_active_handler(NULL, FALSE);
   }
   else {
