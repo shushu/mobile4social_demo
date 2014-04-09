@@ -74,9 +74,6 @@ projects[services_entity][subdir] = contrib
 projects[services_views][version] = "1.0"
 projects[services_views][subdir] = contrib
 
-projects[state_entity][version] = "1.0"
-projects[state_entity][subdir] = contrib
-
 ;projects[taxonomy_services][version] = "x.x"
 ;projects[taxonomy_services][subdir] = contrib
 
