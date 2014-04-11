@@ -3,4 +3,4 @@ core = 7.x
 package = Drupal of Things
 features[features_api][] = api:2
 
-dependencies[] = rules_ui
+dependencies[] = rules_admin
