@@ -137,3 +137,27 @@ function my_rules_process_entity(&$variables) {
     my_rules_ui()->processTemplateRulesConfigTeaser($variables['elements']['#entity'], $variables);
   }
 }
+
+/**
+ * Implements hook_rules_category_info_alter().
+ * Provides default icon for categories.
+ *
+ * @param $items
+ */
+function my_rules_rules_category_info_alter(&$items) {
+  $default_icons = array(
+  );
+  foreach ($items as $name => &$category) {
+    // Continue if icon exist.
+    if (!empty($category['icon'])) {
+      continue;
+    }
+    $default_icon = '/images/drupal.svg';
+    // Look for default icon per category.
+    if (!empty($default_icons[$name])) {
+      $default_icon = $default_icons[$name];
+    }
+    $category['icon'] = $default_icon;
+    $category['icon path'] = drupal_get_path('module', 'my_rules');
+  }
+}
