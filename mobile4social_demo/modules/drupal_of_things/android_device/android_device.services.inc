@@ -43,55 +43,54 @@ function android_device_default_services_endpoint() {
     'system' => array(
       'actions' => array(
         'get_variable' => array(
-          'enabled' => 1,
-        ),
-      ),
-    ),
-    'user' => array(
-      'operations' => array(
-        'create' => array(
-          'enabled' => 1,
-        ),
-      ),
-      'actions' => array(
-        'login' => array(
-          'enabled' => 1,
-        ),
-        'logout' => array(
-          'enabled' => 1,
-        ),
-        'register' => array(
-          'enabled' => 1,
-        ),
-      ),
-    ),
-    'views' => array(
-      'operations' => array(
-        'retrieve' => array(
-          'enabled' => 1,
-        ),
-      ),
-    ),
-    'users' => array(
-      'operations' => array(
-        'index' => array(
-          'enabled' => 1,
+          'enabled' => '1',
         ),
       ),
     ),
     'things' => array(
       'operations' => array(
         'create' => array(
-          'enabled' => 1,
-        ),
-        'update' => array(
-          'enabled' => 1,
-        ),
-        'delete' => array(
-          'enabled' => 1,
+          'enabled' => '1',
         ),
         'retrieve' => array(
-          'enabled' => 1,
+          'enabled' => '1',
+        ),
+        'update' => array(
+          'enabled' => '1',
+        ),
+        'delete' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
+    'user' => array(
+      'operations' => array(
+        'create' => array(
+          'enabled' => '1',
+        ),
+      ),
+      'actions' => array(
+        'login' => array(
+          'enabled' => '1',
+          'settings' => array(
+            'services' => array(
+              'resource_api_version' => '1.0',
+            ),
+          ),
+        ),
+        'logout' => array(
+          'enabled' => '1',
+          'settings' => array(
+            'services' => array(
+              'resource_api_version' => '1.0',
+            ),
+          ),
+        ),
+        'token' => array(
+          'enabled' => '1',
+        ),
+        'register' => array(
+          'enabled' => '1',
         ),
       ),
     ),
