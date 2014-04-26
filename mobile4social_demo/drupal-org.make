@@ -29,6 +29,9 @@ projects[jquery_update][subdir] = contrib
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = 2.2
 
+projects[link][subdir] = "contrib"
+projects[link][version] = 1.2
+
 projects[module_filter][subdir] = "contrib"
 projects[module_filter][version] = 1.8
 
