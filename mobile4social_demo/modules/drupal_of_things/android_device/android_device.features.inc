@@ -21,6 +21,36 @@ function android_device_views_api($module = NULL, $api = NULL) {
 }
 
 /**
+ * Implements hook_default_message_type().
+ */
+function android_device_default_message_type() {
+  $items = array();
+  $items['android_notification'] = entity_import('message_type', '{
+    "name" : "android_notification",
+    "description" : "Android notification",
+    "argument_keys" : [],
+    "argument" : [],
+    "category" : "message_type",
+    "data" : {
+      "token options" : { "clear" : 0 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
+    "language" : "en",
+    "arguments" : null,
+    "message_text" : { "en" : [
+        {
+          "value" : "[current-date:short]",
+          "format" : "filtered_html",
+          "safe_value" : "\\u003Cp\\u003E[current-date:short]\\u003C\\/p\\u003E\\n"
+        }
+      ]
+    },
+    "rdf_mapping" : []
+  }');
+  return $items;
+}
+
+/**
  * Implements hook_default_things_ids_type().
  */
 function android_device_default_things_ids_type() {

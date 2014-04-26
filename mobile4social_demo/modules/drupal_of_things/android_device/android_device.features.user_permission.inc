@@ -13,7 +13,9 @@ function android_device_user_default_permissions() {
   // Exported permission: 'administer things_ids'.
   $permissions['administer things_ids'] = array(
     'name' => 'administer things_ids',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'things_ids',
   );
 
@@ -21,6 +23,7 @@ function android_device_user_default_permissions() {
   $permissions['create things services'] = array(
     'name' => 'create things services',
     'roles' => array(
+      'administrator' => 'administrator',
       'mobile4social' => 'mobile4social',
     ),
     'module' => 'things_services',
@@ -30,6 +33,7 @@ function android_device_user_default_permissions() {
   $permissions['delete things services'] = array(
     'name' => 'delete things services',
     'roles' => array(
+      'administrator' => 'administrator',
       'mobile4social' => 'mobile4social',
     ),
     'module' => 'things_services',
@@ -39,6 +43,7 @@ function android_device_user_default_permissions() {
   $permissions['edit any android_device things'] = array(
     'name' => 'edit any android_device things',
     'roles' => array(
+      'administrator' => 'administrator',
       'mobile4social' => 'mobile4social',
     ),
     'module' => 'things',
@@ -48,6 +53,7 @@ function android_device_user_default_permissions() {
   $permissions['edit any field_device_id things_ids'] = array(
     'name' => 'edit any field_device_id things_ids',
     'roles' => array(
+      'administrator' => 'administrator',
       'mobile4social' => 'mobile4social',
     ),
     'module' => 'things_ids',
@@ -64,6 +70,7 @@ function android_device_user_default_permissions() {
   $permissions['get a system variable'] = array(
     'name' => 'get a system variable',
     'roles' => array(
+      'administrator' => 'administrator',
       'anonymous user' => 'anonymous user',
       'mobile4social' => 'mobile4social',
     ),
@@ -74,6 +81,7 @@ function android_device_user_default_permissions() {
   $permissions['retrieve things services'] = array(
     'name' => 'retrieve things services',
     'roles' => array(
+      'administrator' => 'administrator',
       'mobile4social' => 'mobile4social',
     ),
     'module' => 'things_services',
@@ -83,6 +91,7 @@ function android_device_user_default_permissions() {
   $permissions['update things services'] = array(
     'name' => 'update things services',
     'roles' => array(
+      'administrator' => 'administrator',
       'mobile4social' => 'mobile4social',
     ),
     'module' => 'things_services',
@@ -92,6 +101,7 @@ function android_device_user_default_permissions() {
   $permissions['view any android_device things'] = array(
     'name' => 'view any android_device things',
     'roles' => array(
+      'administrator' => 'administrator',
       'mobile4social' => 'mobile4social',
     ),
     'module' => 'things',
@@ -101,6 +111,7 @@ function android_device_user_default_permissions() {
   $permissions['view any field_device_id things_ids'] = array(
     'name' => 'view any field_device_id things_ids',
     'roles' => array(
+      'administrator' => 'administrator',
       'mobile4social' => 'mobile4social',
     ),
     'module' => 'things_ids',

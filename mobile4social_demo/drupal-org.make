@@ -29,6 +29,9 @@ projects[jquery_update][subdir] = contrib
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = 2.2
 
+projects[link][subdir] = "contrib"
+projects[link][version] = 1.2
+
 projects[module_filter][subdir] = "contrib"
 projects[module_filter][version] = 1.8
 
@@ -64,6 +67,18 @@ projects[full_url_file_info][subdir] = contrib
 
 projects[gcm][version] = "1.6"
 projects[gcm][subdir] = contrib
+
+projects[media][version] = "1.4"
+projects[media][subdir] = contrib
+
+projects[message][version] = "1.9"
+projects[message][subdir] = contrib
+
+projects[message_ui][version] = "1.4"
+projects[message_ui][subdir] = contrib
+
+projects[message_notify][version] = "2.5"
+projects[message_notify][subdir] = contrib
 
 projects[services][version] = "3.7"
 projects[services][subdir] = contrib

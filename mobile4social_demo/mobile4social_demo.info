@@ -39,6 +39,11 @@ dependencies[] = module_filter
 dependencies[] = pathauto
 dependencies[] = views_bulk_operations
 dependencies[] = views_ui
+dependencies[] = message
+dependencies[] = message_notify
+dependencies[] = message_ui
+dependencies[] = media
+dependencies[] = link
 
 ; Features
 dependencies[] = drupal_of_things_ui
