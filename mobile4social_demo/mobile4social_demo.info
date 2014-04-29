@@ -44,6 +44,8 @@ dependencies[] = message_notify
 dependencies[] = message_ui
 dependencies[] = media
 dependencies[] = link
+dependencies[] = panels
+dependencies[] = page_manager
 
 ; Features
 dependencies[] = drupal_of_things_ui
