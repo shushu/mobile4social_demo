@@ -6,6 +6,7 @@ package = Drupal Of Things
 dependencies[] = entity
 dependencies[] = views
 dependencies[] = views_rules
+dependencies[] = ctools
 
 files[] = things.admin.inc
 files[] = things_type.admin.inc
