@@ -5,7 +5,7 @@ package = Drupal Of Things
 
 dependencies[] = services
 dependencies[] = things
-dependencies[] = things_ids
+dependencies[] = thing_ids
 
 ; Information added by drupal.org packaging script on 2012-12-04
 version = "7.x-1.1"

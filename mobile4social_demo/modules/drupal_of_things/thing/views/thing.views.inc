@@ -10,34 +10,34 @@
  * Implements hook_views_data()
  */
 function things_views_data_alter(&$data) { 
-  $data['things']['link_things'] = array(
+  $data['thing']['link_things'] = array(
     'field' => array(
       'title' => t('Link'),
       'help' => t('Provide a link to the things.'),
-      'handler' => 'things_handler_link_field',
+      'handler' => 'thing_handler_link_field',
     ),
   );
-  $data['things']['edit_things'] = array(
+  $data['thing']['edit_things'] = array(
     'field' => array(
       'title' => t('Edit Link'),
       'help' => t('Provide a link to the edit form for the things.'),
-      'handler' => 'things_handler_edit_link_field',
+      'handler' => 'thing_handler_edit_link_field',
     ),
   );
-  $data['things']['delete_things'] = array(
+  $data['thing']['delete_things'] = array(
     'field' => array(
       'title' => t('Delete Link'),
       'help' => t('Provide a link to delete the things.'),
-      'handler' => 'things_handler_delete_link_field',
+      'handler' => 'thing_handler_delete_link_field',
     ),
   );
   // This content of this field are decided based on the menu structure that
   // follows things/things/%things_id/op
-  $data['things']['operations'] = array(
+  $data['thing']['operations'] = array(
     'field' => array(
       'title' => t('Operations links'),
       'help' => t('Display all operations available for this things.'),
-      'handler' => 'things_handler_things_operations_field',
+      'handler' => 'thing_handler_things_operations_field',
     ),
   );
 }
@@ -50,10 +50,10 @@ function things_views_default_views() {
   $views = array();
 
   $view = new view();
-  $view->name = 'things';
+  $view->name = 'thing';
   $view->description = 'A list of all things';
-  $view->tag = 'things';
-  $view->base_table = 'things';
+  $view->tag = 'thing';
+  $view->base_table = 'thing';
   $view->human_name = 'Things';
   $view->core = 7;
   $view->api_version = '3.0';
@@ -64,7 +64,7 @@ function things_views_default_views() {
   $handler->display->display_options['title'] = 'Things';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'create any things type';
+  $handler->display->display_options['access']['perm'] = 'create any thing type';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -73,7 +73,7 @@ function things_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'name' => 'name',
-    'things_id' => 'things_id',
+    'thing_id' => 'thing_id',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -83,7 +83,7 @@ function things_views_default_views() {
       'align' => '',
       'separator' => '',
     ),
-    'things_id' => array(
+    'thing_id' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -95,31 +95,31 @@ function things_views_default_views() {
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['label'] = 'Empty ';
-  $handler->display->display_options['empty']['area']['content'] = 'No things have been created yet';
+  $handler->display->display_options['empty']['area']['content'] = 'No thing have been created yet';
   /* Field: Things: Things ID */
-  $handler->display->display_options['fields']['things_id']['id'] = 'things_id';
-  $handler->display->display_options['fields']['things_id']['table'] = 'things';
-  $handler->display->display_options['fields']['things_id']['field'] = 'things_id';
+  $handler->display->display_options['fields']['thing_id']['id'] = 'thing_id';
+  $handler->display->display_options['fields']['thing_id']['table'] = 'thing';
+  $handler->display->display_options['fields']['thing_id']['field'] = 'thing_id';
   /* Field: Things: Type */
   $handler->display->display_options['fields']['type']['id'] = 'type';
-  $handler->display->display_options['fields']['type']['table'] = 'things';
+  $handler->display->display_options['fields']['type']['table'] = 'thing';
   $handler->display->display_options['fields']['type']['field'] = 'type';
   /* Field: Things: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'things';
+  $handler->display->display_options['fields']['name']['table'] = 'thing';
   $handler->display->display_options['fields']['name']['field'] = 'name';
   /* Field: Things: Link */
   $handler->display->display_options['fields']['link_things']['id'] = 'link_things';
-  $handler->display->display_options['fields']['link_things']['table'] = 'things';
+  $handler->display->display_options['fields']['link_things']['table'] = 'thing';
   $handler->display->display_options['fields']['link_things']['field'] = 'link_things';
   $handler->display->display_options['fields']['link_things']['label'] = 'View';
   /* Field: Things: Operations links */
   $handler->display->display_options['fields']['operations']['id'] = 'operations';
-  $handler->display->display_options['fields']['operations']['table'] = 'things';
+  $handler->display->display_options['fields']['operations']['table'] = 'thing';
   $handler->display->display_options['fields']['operations']['field'] = 'operations';
 
   /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'things_admin_page');
+  $handler = $view->new_display('page', 'Page', 'thing_admin_page');
   $handler->display->display_options['path'] = 'admin/drupal-of-things/things';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Things';
@@ -132,7 +132,7 @@ function things_views_default_views() {
   $handler->display->display_options['tab_options']['description'] = 'Manage things';
   $handler->display->display_options['tab_options']['weight'] = '0';
   $handler->display->display_options['tab_options']['name'] = 'management';
-  $translatables['things'] = array(
+  $translatables['thing'] = array(
     t('Master'),
     t('Things'),
     t('more'),
@@ -149,7 +149,7 @@ function things_views_default_views() {
     t('next ›'),
     t('last »'),
     t('Empty '),
-    t('No things have been created yet'),
+    t('No thing have been created yet'),
     t('Things ID'),
     t('.'),
     t(','),
@@ -159,7 +159,7 @@ function things_views_default_views() {
     t('Operations links'),
     t('Page'),
   );
-  $views['things_view'] = $view;
+  $views['thing_view'] = $view;
   return $views;
 
 }

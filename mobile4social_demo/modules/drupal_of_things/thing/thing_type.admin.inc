@@ -15,14 +15,14 @@ class ThingsTypeUIController extends EntityDefaultUIController {
    */
   public function hook_menu() {
     $items = parent::hook_menu();
-		$items[$this->path]['description'] = 'Manage things entity types, including adding
+		$items[$this->path]['description'] = 'Manage thing entity types, including adding
 		and removing fields and the display of fields.';
     return $items;
   }
 }
 
 /**
- * Generates the things type editing form.
+ * Generates the thing type editing form.
  */
 function things_type_form($form, &$form_state, $things_type, $op = 'edit') {
 
@@ -35,7 +35,7 @@ function things_type_form($form, &$form_state, $things_type, $op = 'edit') {
     '#title' => t('Label'),
     '#type' => 'textfield',
     '#default_value' => $things_type->label,
-    '#description' => t('The human-readable name of this things type.'),
+    '#description' => t('The human-readable name of this thing type.'),
     '#required' => TRUE,
     '#size' => 30,
   );
@@ -45,16 +45,16 @@ function things_type_form($form, &$form_state, $things_type, $op = 'edit') {
     '#default_value' => isset($things_type->type) ? $things_type->type : '',
     '#maxlength' => 32,
     '#machine_name' => array(
-      'exists' => 'things_get_types',
+      'exists' => 'thing_get_types',
       'source' => array('label'),
     ),
-    '#description' => t('A unique machine-readable name for this things type. It must only contain lowercase letters, numbers, and underscores.'),
+    '#description' => t('A unique machine-readable name for this thing type. It must only contain lowercase letters, numbers, and underscores.'),
   );
 
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Save things type'),
+    '#value' => t('Save thing type'),
     '#weight' => 40,
   );
 
@@ -74,5 +74,5 @@ function things_type_form_submit(&$form, &$form_state) {
  * Form API submit callback for the delete button.
  */
 function things_type_form_submit_delete(&$form, &$form_state) {
-  $form_state['redirect'] = 'admin/drupal-of-things/configuration/things-types/manage/' . $form_state['things_type']->type . '/delete';
+  $form_state['redirect'] = 'admin/drupal-of-things/configuration/things-types/manage/' . $form_state['thing_type']->type . '/delete';
 }

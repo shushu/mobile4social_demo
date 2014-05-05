@@ -8,7 +8,7 @@ class things_handler_things_operations_field extends views_handler_field {
   function construct() {
     parent::construct();
 
-    $this->additional_fields['things_id'] = 'things_id';
+    $this->additional_fields['thing_id'] = 'thing_id';
   }
 
   function query() {
@@ -18,7 +18,7 @@ class things_handler_things_operations_field extends views_handler_field {
 
   function render($values) {
 
-    $links = menu_contextual_links('things', 'admin/drupal-of-things/things', array($this->get_value($values, 'things_id')));
+    $links = menu_contextual_links('thing', 'admin/drupal-of-things/things', array($this->get_value($values, 'thing_id')));
     
     if (!empty($links)) {
       return theme('links', array('links' => $links, 'attributes' => array('class' => array('links', 'inline', 'operations'))));

@@ -1,0 +1,470 @@
+<?php
+
+/**
+ * @file
+ * Module for the thing_ids Entity - a starting point to create your own Entity
+ * and associated administration interface
+ */  
+
+
+/**
+ * Implement hook_entity_info().
+ *
+ * We define two entities here - the actual entity that will hold our domain
+ * specific information and an entity that holds information about the different
+ * types of entities. See here: http://drupal.org/node/977380 for a discussion on this
+ * choice.
+ */
+function thing_ids_entity_info() {
+  $return['thing_ids'] = array(
+    'label' => t('Things Identifiers'),
+    // The entity class and controller class extend the classes provided by the
+    // Entity API
+    'entity class' => 'thing_ids',
+    'controller class' => 'thing_idsController',
+    'base table' => 'thing_ids',
+    'fieldable' => TRUE,
+    'entity keys' => array(
+        'id' => 'thing_ids_id',
+        'bundle' => 'type',
+    ),
+    // Bundles are defined by the Things Identifier types below
+    'bundles' => array(),
+    // Bundle keys tell the FieldAPI how to extract information from the bundle objects
+    'bundle keys' => array(
+      'bundle' => 'type',
+    ),
+    'label callback' => 'entity_class_label',
+    'uri callback' => 'entity_class_uri',
+    'creation callback' => 'thing_ids_create',
+    'access callback' => 'thing_ids_access',
+    'module' => 'thing_ids',
+    // The information below is used by the thing_idsUIController (which extends the EntityDefaultUIController)
+    'admin ui' => array(
+      'path' => 'admin/drupal-of-things/identifiers',
+      'file' => 'thing_ids.admin.inc',
+      'controller class' => 'thing_idsUIController',
+      'menu wildcard' => '%thing_ids',
+    ),
+  );
+  // The entity that holds information about the entity types	  
+  $return['thing_ids_type'] = array(
+    'label' => t('Things Identifiers Type'),
+    'entity class' => 'thing_idsType',
+    'controller class' => 'thing_idsTypeController',
+    'base table' => 'thing_ids_type',
+    'fieldable' => FALSE,
+    'bundle of' => 'thing_ids',
+    'exportable' => TRUE,
+    'entity keys' => array(
+      'id' => 'id',
+      'name' => 'type',
+      'label' => 'label',
+    ),
+    'access callback' => 'thing_ids_type_access',
+    'module' => 'thing_ids',
+    // Enable the entity API's admin UI.
+    'admin ui' => array(
+      'path' => 'admin/drupal-of-things/configuration/identifiers-types',
+      'file' => 'thing_ids_type.admin.inc',
+      'controller class' => 'thing_idsTypeUIController',
+    ),
+  );
+
+  return $return;
+}
+
+
+/**
+ * Implements hook_entity_info_alter().
+ *
+ * We are adding the info about the Things Identifier types via a hook to avoid a recursion
+ * issue as loading the Things Identifier types requires the entity info as well.
+ *
+ * @todo This needs to be improved
+ */
+function thing_ids_entity_info_alter(&$entity_info) {
+  foreach (thing_ids_get_types() as $type => $info) {
+    $entity_info['thing_ids']['bundles'][$type] = array(
+      'label' => $info->label,
+      'admin' => array(
+        'path' => 'admin/drupal-of-things/configuration/identifiers-types/manage/%thing_ids_type',
+        'real path' => 'admin/drupal-of-things/configuration/identifiers-types/manage/' . $type,
+        'bundle argument' => 4,
+        'access arguments' => array('administer thing_ids types'),
+      ),
+    );
+  }
+}
+  
+
+/**
+ * Implements hook_permission().
+ */
+function thing_ids_permission() {
+  // We set up permisssions to manage entity types, manage all entities and the
+  // permissions for each individual entity
+  $permissions = array(
+    'administer thing_ids types' => array(
+      'title' => t('Administer thing_ids types'),
+      'description' => t('Create and delete fields for Things Identifier types, and set their permissions.'),
+    ),
+    'administer thing_ids' => array(
+      'title' => t('Administer Things Identifiers'),
+      'description' => t('Edit and delete all thing_ids'),
+    ),  
+  );
+  
+  //Generate permissions per thing_ids
+  foreach (thing_ids_get_types() as $type) {
+    $type_name = check_plain($type->type);
+    $permissions += array(
+      "edit any $type_name thing_ids" => array(
+        'title' => t('%type_name: Edit any thing_ids', array('%type_name' => $type->label)),
+      ),
+      "view any $type_name thing_ids" => array(
+        'title' => t('%type_name: View any thing_ids', array('%type_name' => $type->label)),
+      ),
+    );
+  }
+  return $permissions;  
+}
+
+
+/**
+ * Determines whether the given user has access to a thing_ids.
+ *
+ * @param $op
+ *   The operation being performed. One of 'view', 'update', 'create', 'delete'
+ *   or just 'edit' (being the same as 'create' or 'update').
+ * @param $thing_ids
+ *   Optionally a thing_ids or a Things Identifier type to check access for. If nothing_ids is
+ *   given, access for all Things Identifiers is determined.
+ * @param $account
+ *   The user to check for. Leave it to NULL to check for the global user.
+ * @return boolean
+ *   Whether access is allowed or not.
+ */
+function thing_ids_access($op, $thing_ids = NULL, $account = NULL) {
+  if (user_access('administer thing_ids', $account)) {
+    return TRUE;
+  }
+  if (isset($thing_ids) && $type_name = $thing_ids->type) {
+    $op = ($op == 'view') ? 'view' : 'edit';
+    if (user_access("$op any $type_name thing_ids", $account)) {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
+
+/**
+ * Access callback for the entity API.
+ */
+function thing_ids_type_access($op, $type = NULL, $account = NULL) {
+  return user_access('administer thing_ids types', $account);
+}
+
+
+/**
+ * Gets an array of all Things Identifier types, keyed by the type name.
+ *
+ * @param $type_name
+ *   If set, the type with the given name is returned.
+ * @return thing_idsType[]
+ *   Depending whether $type isset, an array of Things Identifier types or a single one.
+ */
+function thing_ids_get_types($type_name = NULL) {
+  // entity_load will get the Entity controller for our thing_ids entity and call the load
+  // function of that object - we are loading entities by name here.
+  $types = entity_load_multiple_by_name('thing_ids_type', isset($type_name) ? array($type_name) : FALSE);
+  return isset($type_name) ? reset($types) : $types;
+}
+
+
+/**
+ * Menu argument loader; Load a Things Identifier type by string.
+ *
+ * @param $type
+ *   The machine-readable name of a Things Identifier type to load.
+ * @return
+ *   A Things Identifier type array or FALSE if $type does not exist.
+ */
+function thing_ids_type_load($type) {
+  return thing_ids_get_types($type);
+}
+
+
+/**
+ * Fetch a thing_ids object. Make sure that the wildcard you choose
+ * in the thing_ids entity definition fits the function name here.
+ *
+ * @param $thing_ids_id
+ *   Integer specifying the thing_ids id.
+ * @param $reset
+ *   A boolean indicating that the internal cache should be reset.
+ * @return
+ *   A fully-loaded $thing_ids object or FALSE if it cannot be loaded.
+ *
+ * @see thing_ids_load_multiple()
+ */
+function thing_ids_load($thing_ids_id, $reset = FALSE) {
+  $thing_ids = thing_ids_load_multiple(array($thing_ids_id), array(), $reset);
+  return reset($thing_ids);
+}
+
+
+/**
+ * Load multiple Things Identifiers based on certain conditions.
+ *
+ * @param $thing_ids_ids
+ *   An array of thing_ids IDs.
+ * @param $conditions
+ *   An array of conditions to match against the {thing_ids} table.
+ * @param $reset
+ *   A boolean indicating that the internal cache should be reset.
+ * @return
+ *   An array of thing_ids objects, indexed by thing_ids_id.
+ *
+ * @see entity_load()
+ * @see thing_ids_load()
+ */
+function thing_ids_load_multiple($thing_ids_ids = array(), $conditions = array(), $reset = FALSE) {
+  return entity_load('thing_ids', $thing_ids_ids, $conditions, $reset);
+}
+
+
+/**
+ * Deletes a thing_ids.
+ */
+function thing_ids_delete(thing_ids $thing_ids) {
+  $thing_ids->delete();
+}
+
+
+/**
+ * Delete multiple Things Identifiers.
+ *
+ * @param $thing_ids_ids
+ *   An array of thing_ids IDs.
+ */
+function thing_ids_delete_multiple(array $thing_ids_ids) {
+  entity_get_controller('thing_ids')->delete($thing_ids_ids);
+}
+
+
+/**
+ * Create a thing_ids object.
+ */
+function thing_ids_create($values = array()) {
+  return entity_get_controller('thing_ids')->create($values);
+}
+
+
+/**
+ * Saves a thing_ids to the database.
+ *
+ * @param $thing_ids
+ *   The thing_ids object.
+ */
+function thing_ids_save(thing_ids $thing_ids) {
+  return $thing_ids->save();
+}
+
+
+/**
+ * Saves a Things Identifier type to the db.
+ */
+function thing_ids_type_save(thing_idsType $type) {
+  $type->save();
+}
+
+
+/**
+ * Deletes a Things Identifier type from the db.
+ */
+function thing_ids_type_delete(thing_idsType $type) {
+  $type->delete();
+}
+
+
+/**
+ * URI callback for Things Identifiers
+ */
+function thing_ids_uri(thing_ids $thing_ids){
+  return array(
+    'path' => 'thing_ids/' . $thing_ids->thing_ids_id,
+  );
+}
+
+
+/**
+ * Menu title callback for showing individual entities
+ */
+function thing_ids_page_title(thing_ids $thing_ids){
+  return $thing_ids->token;
+}
+
+
+/**
+ * Sets up content to show an individual thing_ids
+ * @todo - get rid of drupal_set_title();
+ */
+function thing_ids_page_view($thing_ids, $view_mode = 'full') {
+  $controller = entity_get_controller('thing_ids');
+  $content = $controller->view(array($thing_ids->thing_ids_id => $thing_ids));
+  drupal_set_title($thing_ids->token);
+  return $content;
+}
+
+
+/**
+ * Implements hook_views_api().
+ */
+function thing_ids_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'thing_ids') . '/views',
+  );
+}
+
+
+/**
+ * Implement hook_theme().
+ */
+function thing_ids_theme() {
+  return array(
+    'thing_ids_add_list' => array(
+      'variables' => array('content' => array()),
+      'file' => 'thing_ids.admin.inc',
+    ),
+    'thing_ids' => array(
+      'render element' => 'elements',
+      'template' => 'thing_ids',
+    ),
+  );
+}  
+
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function thing_ids_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  // Add action link 'admin/drupal-of-things/configuration/thing_ids/add' on 'admin/structure/thing_ids'.
+  if ($root_path == 'admin/drupal-of-things/identifiers') {
+    $item = menu_get_item('admin/drupal-of-things/identifiers/add');
+    if ($item['access']) {
+      $data['actions']['output'][] = array(
+        '#theme' => 'menu_local_action',
+        '#link' => $item,
+      );
+    }
+  }
+}
+
+
+/**
+ * The class used for thing_ids entities
+ */
+class thing_ids extends Entity {
+  
+  public function __construct($values = array()) {
+    parent::__construct($values, 'thing_ids');
+  }
+
+  protected function defaultLabel() {
+    return $this->token;
+  }
+
+  protected function defaultUri() {
+    return array('path' => 'thing_ids/' . $this->thing_ids_id);
+  }
+  
+  
+}
+
+
+/**
+ * The class used for Things Identifier type entities
+ */
+class thing_idsType extends Entity {
+  
+  public $type;
+  public $label;
+  
+  public function __construct($values = array()) {
+    parent::__construct($values, 'thing_ids_type');
+  }
+  
+}
+
+
+/**
+ * The Controller for thing_ids entities
+ */
+class thing_idsController extends EntityAPIController {
+  public function __construct($entityType) {
+    parent::__construct($entityType);
+  }
+
+
+  /**
+   * Create a thing_ids - we first set up the values that are specific
+   * to our thing_ids schema but then also go through the EntityAPIController
+   * function.
+   * 
+   * @param $type
+   *   The machine-readable type of the thing_ids.
+   *
+   * @return
+   *   A thing_ids object with all default fields initialized.
+   */
+  public function create(array $values = array()) {
+    // Add values that are specific to our thing_ids
+    $values += array( 
+      'thing_ids_id' => '',
+      'is_new' => TRUE,
+      'title' => '',
+      'created' => '',
+      'changed' => '',
+      'data' => '',
+    );
+    
+    $thing_ids = parent::create($values);
+    return $thing_ids;
+  }
+}
+
+
+/**
+ * The Controller for thing_ids entities
+ */
+class thing_idsTypeController extends EntityAPIControllerExportable {
+  public function __construct($entityType) {
+    parent::__construct($entityType);
+  }
+  
+   /**
+   * Create a Things Identifier type - we first set up the values that are specific
+   * to our Things Identifier type schema but then also go through the EntityAPIController
+   * function.
+   * 
+   * @param $type
+   *   The machine-readable type of the thing_ids.
+   *
+   * @return
+   *   A Things Identifier type object with all default fields initialized.
+   */
+  public function create(array $values = array()) {
+    // Add values that are specific to our thing_ids
+    $values += array( 
+      'id' => '',
+      'is_new' => TRUE,
+      'data' => '',
+    );
+    $thing_ids_type = parent::create($values);
+    return $thing_ids_type;
+  }
+
+}

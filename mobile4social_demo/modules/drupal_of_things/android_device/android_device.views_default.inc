@@ -14,7 +14,7 @@ function android_device_views_default_views() {
   $view->name = 'gcm_identifier_by_user';
   $view->description = '';
   $view->tag = 'default';
-  $view->base_table = 'things';
+  $view->base_table = 'thing';
   $view->human_name = 'GCM identifier by user';
   $view->core = 7;
   $view->api_version = '3.0';
@@ -36,14 +36,14 @@ function android_device_views_default_views() {
   $handler->display->display_options['relationships']['field_gcm_id_target_id']['field'] = 'field_gcm_id_target_id';
   $handler->display->display_options['relationships']['field_gcm_id_target_id']['label'] = 'GCM id for thing';
   $handler->display->display_options['relationships']['field_gcm_id_target_id']['required'] = TRUE;
-  /* Field: Things Identifiers: Token */
+  /* Field: Thing Identifiers: Token */
   $handler->display->display_options['fields']['token']['id'] = 'token';
-  $handler->display->display_options['fields']['token']['table'] = 'things_ids';
+  $handler->display->display_options['fields']['token']['table'] = 'thing_ids';
   $handler->display->display_options['fields']['token']['field'] = 'token';
   $handler->display->display_options['fields']['token']['relationship'] = 'field_gcm_id_target_id';
   $handler->display->display_options['fields']['token']['label'] = '';
   $handler->display->display_options['fields']['token']['element_label_colon'] = FALSE;
-  /* Contextual filter: Things: Owner (field_owner) */
+  /* Contextual filter: Thing: Owner (field_owner) */
   $handler->display->display_options['arguments']['field_owner_target_id']['id'] = 'field_owner_target_id';
   $handler->display->display_options['arguments']['field_owner_target_id']['table'] = 'field_data_field_owner';
   $handler->display->display_options['arguments']['field_owner_target_id']['field'] = 'field_owner_target_id';
@@ -52,9 +52,9 @@ function android_device_views_default_views() {
   $handler->display->display_options['arguments']['field_owner_target_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_owner_target_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_owner_target_id']['summary_options']['items_per_page'] = '25';
-  /* Filter criterion: Things: Type */
+  /* Filter criterion: Thing: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'things';
+  $handler->display->display_options['filters']['type']['table'] = 'thing';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'android_device' => 'android_device',
@@ -68,7 +68,7 @@ function android_device_views_default_views() {
     'field_owner_target_id' => array(
       'enabled' => 1,
       'type' => 'integer',
-      'label' => 'Things: Owner (field_owner)',
+      'label' => 'Thing: Owner (field_owner)',
       'name' => 'field_owner_target_id',
     ),
   );
@@ -76,7 +76,7 @@ function android_device_views_default_views() {
     'token' => array(
       'enabled' => 1,
       'type' => 'text',
-      'label' => '(GCM id for thing) Things Identifiers: Token',
+      'label' => '(GCM id for thing) Thing Identifiers: Token',
       'name' => 'token',
     ),
   );

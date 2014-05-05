@@ -2,22 +2,22 @@
 
 /**
  * @file
- * A basic template for things entities
+ * A basic template for thing_ids entities
  *
  * Available variables:
  * - $content: An array of comment items. Use render($content) to print them all, or
  *   print a subset such as render($content['field_example']). Use
  *   hide($content['field_example']) to temporarily suppress the printing of a
  *   given element.
- * - $title: The name of the things
- * - $url: The standard URL for viewing a things entity
+ * - $title: The name of the thing_ids
+ * - $url: The standard URL for viewing a thing_ids entity
  * - $page: TRUE if this is the main view page $url points too.
  * - $classes: String of classes that can be used to style contextually through
  *   CSS. It can be manipulated through the variable $classes_array from
  *   preprocess functions. By default the following classes are available, where
  *   the parts enclosed by {} are replaced by the appropriate values:
  *   - entity-profile
- *   - things-{TYPE}
+ *   - thing_ids-{TYPE}
  *
  * Other variables:
  * - $classes_array: Array of html class attribute values. It is flattened

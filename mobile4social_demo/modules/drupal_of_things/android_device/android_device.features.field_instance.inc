@@ -183,8 +183,8 @@ function android_device_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'things-android_device-field_device_id'
-  $field_instances['things-android_device-field_device_id'] = array(
+  // Exported field_instance: 'thing-android_device-field_device_id'
+  $field_instances['thing-android_device-field_device_id'] = array(
     'bundle' => 'android_device',
     'default_value' => NULL,
     'deleted' => 0,
@@ -201,7 +201,7 @@ function android_device_field_default_field_instances() {
         'weight' => 1,
       ),
     ),
-    'entity_type' => 'things',
+    'entity_type' => 'thing',
     'field_name' => 'field_device_id',
     'label' => 'Device ID',
     'required' => 0,
@@ -221,8 +221,8 @@ function android_device_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'things-android_device-field_gcm_id'
-  $field_instances['things-android_device-field_gcm_id'] = array(
+  // Exported field_instance: 'thing-android_device-field_gcm_id'
+  $field_instances['thing-android_device-field_gcm_id'] = array(
     'bundle' => 'android_device',
     'default_value' => NULL,
     'deleted' => 0,
@@ -238,7 +238,7 @@ function android_device_field_default_field_instances() {
         'weight' => 2,
       ),
     ),
-    'entity_type' => 'things',
+    'entity_type' => 'thing',
     'field_name' => 'field_gcm_id',
     'label' => 'GCM ID',
     'required' => 0,
@@ -258,8 +258,8 @@ function android_device_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'things-android_device-field_owner'
-  $field_instances['things-android_device-field_owner'] = array(
+  // Exported field_instance: 'thing-android_device-field_owner'
+  $field_instances['thing-android_device-field_owner'] = array(
     'bundle' => 'android_device',
     'default_value' => NULL,
     'deleted' => 0,
@@ -275,7 +275,7 @@ function android_device_field_default_field_instances() {
         'weight' => 3,
       ),
     ),
-    'entity_type' => 'things',
+    'entity_type' => 'thing',
     'field_name' => 'field_owner',
     'label' => 'Owner',
     'required' => 0,
@@ -295,8 +295,8 @@ function android_device_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'things-android_device-field_updater'
-  $field_instances['things-android_device-field_updater'] = array(
+  // Exported field_instance: 'thing-android_device-field_updater'
+  $field_instances['thing-android_device-field_updater'] = array(
     'bundle' => 'android_device',
     'default_value' => NULL,
     'deleted' => 0,
@@ -312,7 +312,7 @@ function android_device_field_default_field_instances() {
         'weight' => 4,
       ),
     ),
-    'entity_type' => 'things',
+    'entity_type' => 'thing',
     'field_name' => 'field_updater',
     'label' => 'Updater',
     'required' => 0,

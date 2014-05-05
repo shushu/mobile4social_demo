@@ -3,21 +3,21 @@
 /*
  * Implementation of hook_permission
  */
-function things_services_permission() {
+function thing_services_permission() {
   return array(
-    'create things services' => array(
+    'create thing services' => array(
       'title' => t('Create Things services'), 
       'description' => t('Create Things services'),
     ),
-    'update things services' => array(
+    'update thing services' => array(
       'title' => t('Update Things services'), 
       'description' => t('Update Things services'),
     ),
-    'delete things services' => array(
+    'delete thing services' => array(
       'title' => t('Delete Things services'), 
       'description' => t('Delete Things services'),
     ),
-    'retrieve things services' => array(
+    'retrieve thing services' => array(
       'title' => t('Retrieve Things services'), 
       'description' => t('Retrieve Things services'),
     ),
@@ -27,7 +27,7 @@ function things_services_permission() {
 /*
  * Implementation of hook_services_resources().
  */
-function things_services_services_resources() {
+function thing_services_services_resources() {
   $basic_args = array(
     array (
       'name' => 'owner',
@@ -37,12 +37,12 @@ function things_services_services_resources() {
       'type' => 'string',
     ),
     array (
-      'name' => 'thingsname',
+      'name' => 'thingname',
       'optional' => TRUE,
-      'source' => array('data' => 'thingsname'),
-      'description' => 'Things name',
+      'source' => array('data' => 'thingname'),
+      'description' => 'Thing name',
       'type' => 'string',
-//      'default value' => 'New things',
+//      'default value' => 'New thing',
     ),
     array (
       'name' => 'updater',
@@ -68,9 +68,9 @@ function things_services_services_resources() {
   );
 
   $resources = array(
-    'things' => array (
+    'thing' => array (
       'create' => array(
-        'help' => 'Create things',
+        'help' => 'Create thing',
         'access callback' => '_things_create_access',
         'args' => array (
           array (
@@ -81,12 +81,12 @@ function things_services_services_resources() {
             'type' => 'string',
           ),
           array (
-            'name' => 'thingsname',
+            'name' => 'thingname',
             'optional' => TRUE,
-            'source' => array('data' => 'thingsname'),
+            'source' => array('data' => 'thingname'),
             'description' => 'Things name',
             'type' => 'string',
-            'default value' => 'New things',
+            'default value' => 'New thing',
           ),
           array (
             'name' => 'updater',
@@ -121,7 +121,7 @@ function things_services_services_resources() {
         'callback' => '_things_create',
       ),
       'update' => array(
-        'help' => 'Update things',
+        'help' => 'Update thing',
         'access callback' => '_things_update_access',
         'args' => array (
           array (
@@ -132,9 +132,9 @@ function things_services_services_resources() {
             'type' => 'int',
           ),
           array (
-            'name' => 'thingsname',
+            'name' => 'thingname',
             'optional' => TRUE,
-            'source' => array('data' => 'thingsname'),
+            'source' => array('data' => 'thingname'),
             'description' => 'Things name',
             'type' => 'string',
           ),
@@ -170,7 +170,7 @@ function things_services_services_resources() {
         'callback' => '_things_update',
       ),
       'delete' => array(
-        'help' => 'Delete things',
+        'help' => 'Delete thing',
         'access callback' => '_things_delete_access',
         'args' => array (
           array (
@@ -184,7 +184,7 @@ function things_services_services_resources() {
         'callback' => '_things_delete',
       ),
       'retrieve' => array(
-        'help' => 'Retrieve things',
+        'help' => 'Retrieve thing',
         'access callback' => '_things_retrieve_access',
         'args' => array (
           array (
@@ -204,16 +204,16 @@ function things_services_services_resources() {
 }
 
 function _things_create_access() {
-  return user_access('create things services');
+  return user_access('create thing services');
 }
 function _things_update_access() {
-  return user_access('update things services');
+  return user_access('update thing services');
 }
 function _things_delete_access() {
-  return user_access('delete things services');
+  return user_access('delete thing services');
 }
 function _things_retrieve_access() {
-  return user_access('retrieve things services');
+  return user_access('retrieve thing services');
 }
 function _update_android_device($android, $name, $owner, $identifier_type, $identifier, $updater) {
   $error = NULL;
@@ -317,7 +317,7 @@ function _handle_updater($android, $updater_id = 0) {
       if ($updater_id != $android->things_id) {
         $updater = things_load($updater_id);
         if (!$updater) {
-          $error = t('Failed to load things updater with things id @id', array('@id' => $updater_id));
+          $error = t('Failed to load thing updater with thing id @id', array('@id' => $updater_id));
         }
       }
       if (!$error) {
@@ -329,7 +329,7 @@ function _handle_updater($android, $updater_id = 0) {
       things_save($android);
     }
   } else {
-    watchdog('things services', "No updater to update");
+    watchdog('thing services', "No updater to update");
   }
 
   return $error;
@@ -376,7 +376,7 @@ function _handle_owner($android, $owner_name = NULL) {
       things_save($android);
     }
   } else {
-    watchdog('things services', "No owner to update");
+    watchdog('thing services', "No owner to update");
   }
 
   return $error;
@@ -393,11 +393,11 @@ function _handle_one_identifier($android, $identifier_type, $identifier_token = 
       $temp = $android->$identifier_type;
       if (isset($temp['und'][0]['target_id']) && intval($temp['und'][0]['target_id']) != 0) {
         $android_device_identifier_id = $temp['und'][0]['target_id'];
-        $device_id = things_ids_load($android_device_identifier_id);
+        $device_id = thing_ids_load($android_device_identifier_id);
         if ($device_id) {
           if ($device_id->token !== $identifier_token) {
             $device_id->token = $identifier_token;
-            $saved = things_ids_save($device_id);
+            $saved = thing_ids_save($device_id);
             if (!$saved) {
               $no_identifier = TRUE;
             }
@@ -416,7 +416,7 @@ function _handle_one_identifier($android, $identifier_type, $identifier_token = 
       // no identifier
       $identifier = _create_identifier($identifier_type, $identifier_token);
       if ($identifier) {
-        $android->$identifier_type = reference_field($identifier->things_ids_id);
+        $android->$identifier_type = reference_field($identifier->thing_ids_id);
         $saved = things_save($android);
         if (!$saved) {
           $error = t('Failed to save Android device');
@@ -453,9 +453,9 @@ function _create_identifier($identifier_type, $identifier_token) {
   $data = array();
   $data['type'] = $identifier_type;
   $data['token'] = $identifier_token;
-  $identifier = things_ids_create($data);
+  $identifier = thing_ids_create($data);
   if ($identifier) {
-    $saved = things_ids_save($identifier);
+    $saved = thing_ids_save($identifier);
   }
   if ($saved) {
     return $identifier;
@@ -466,7 +466,7 @@ function _create_identifier($identifier_type, $identifier_token) {
 
 function _things_update($id, $things_name, $owner, $updater, $identifier, $identifiertype) {
   watchdog("things services", "id=$id, name=$things_name, owner=$owner, updater=$updater, identifier=$identifier, idtype=$identifiertype");
-  // check things type
+  // check thing type
   $return = _android_device_update($id, $things_name, $owner, $updater, $identifier, $identifiertype);
 
   // TODO: think on needed hooks and/or Rules actions
@@ -498,15 +498,15 @@ function _delete_identifier($android, $identifier_type) {
   $temp = $android->$identifier_type;
   if (isset($temp['und'][0]['target_id']) && intval($temp['und'][0]['target_id']) != 0) {
     $android_device_identifier_id = $temp['und'][0]['target_id'];
-    $identifier = things_ids_load($android_device_identifier_id);
+    $identifier = thing_ids_load($android_device_identifier_id);
     if ($identifier) {
-      things_ids_delete($identifier);
+      thing_ids_delete($identifier);
     }
   }
 }
 
 function _things_create( $owner, $things_name, $updater, $identifier, $identifiertype, $type) {
-  // check things type
+  // check thing type
   if ($type === "android_device") {
     $return = _android_device_create($type, $things_name, $owner, $updater, $identifier, $identifiertype);
   } else {

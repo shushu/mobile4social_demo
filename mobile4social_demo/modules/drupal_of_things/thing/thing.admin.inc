@@ -38,14 +38,14 @@ class ThingsUIController extends EntityDefaultUIController {
     
     // Change the add page menu to multiple types of entities
     $items[$this->path . '/add'] = array(
-      'title' => 'Add a things',
-      'description' => 'Add a new things',
-      'page callback'  => 'things_add_page',
-      'access callback'  => 'things_access',
+      'title' => 'Add a thing',
+      'description' => 'Add a new thing',
+      'page callback'  => 'thing_add_page',
+      'access callback'  => 'thing_access',
       'access arguments' => array('edit'),
       'type' => MENU_NORMAL_ITEM,
       'weight' => 20,
-      'file' => 'things.admin.inc',
+      'file' => 'thing.admin.inc',
       'file path' => drupal_get_path('module', $this->entityInfo['module'])
 
     );
@@ -54,24 +54,24 @@ class ThingsUIController extends EntityDefaultUIController {
     foreach (things_get_types() as $type) {
       $items[$this->path . '/add/' . $type->type] = array(
         'title' => 'Add ' . $type->label,
-        'page callback' => 'things_form_wrapper',
+        'page callback' => 'thing_form_wrapper',
         'page arguments' => array(things_create(array('type' => $type->type))),
-        'access callback' => 'things_access',
+        'access callback' => 'thing_access',
         'access arguments' => array('edit', 'edit ' . $type->type),
-        'file' => 'things.admin.inc',
+        'file' => 'thing.admin.inc',
         'file path' => drupal_get_path('module', $this->entityInfo['module'])
       );
     }
 
-    // Loading and editing things entities
+    // Loading and editing thing entities
     $items[$this->path . '/things/' . $wildcard] = array(
-      'page callback' => 'things_form_wrapper',
+      'page callback' => 'thing_form_wrapper',
       'page arguments' => array($id_count + 1),
-      'access callback' => 'things_access',
+      'access callback' => 'thing_access',
       'access arguments' => array('edit', $id_count + 1),
       'weight' => 0,
       'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
-      'file' => 'things.admin.inc',
+      'file' => 'thing.admin.inc',
       'file path' => drupal_get_path('module', $this->entityInfo['module'])
     );
     $items[$this->path . '/things/' . $wildcard . '/edit'] = array(
@@ -83,25 +83,25 @@ class ThingsUIController extends EntityDefaultUIController {
     
     $items[$this->path . '/things/' . $wildcard . '/delete'] = array(
       'title' => 'Delete',
-      'page callback' => 'things_delete_form_wrapper',
+      'page callback' => 'thing_delete_form_wrapper',
       'page arguments' => array($id_count + 1),
-      'access callback' => 'things_access',
+      'access callback' => 'thing_access',
       'access arguments' => array('edit', $id_count + 1),
       'type' => MENU_LOCAL_TASK,
       'context' => MENU_CONTEXT_INLINE,
       'weight' => 10,
-      'file' => 'things.admin.inc',
+      'file' => 'thing.admin.inc',
       'file path' => drupal_get_path('module', $this->entityInfo['module'])
     );
     
-    // Menu item for viewing things
-    $items['things/' . $wildcard] = array(
+    // Menu item for viewing thing
+    $items['thing/' . $wildcard] = array(
       //'title' => 'Title',
-      'title callback' => 'things_page_title',
+      'title callback' => 'thing_page_title',
       'title arguments' => array(1),
-      'page callback' => 'things_page_view',
+      'page callback' => 'thing_page_view',
       'page arguments' => array(1),
-      'access callback' => 'things_access',
+      'access callback' => 'thing_access',
       'access arguments' => array('view', 1),
       'type' => MENU_CALLBACK,
     );
@@ -122,7 +122,7 @@ class ThingsUIController extends EntityDefaultUIController {
       drupal_goto($item['href']);
     }    
         
-    return theme('things_add_list', array('content' => $content));
+    return theme('thing_add_list', array('content' => $content));
   }
   
 }
@@ -132,14 +132,14 @@ class ThingsUIController extends EntityDefaultUIController {
  * Form callback wrapper: create or edit a things.
  *
  * @param $things
- *   The things object being edited by this form.
+ *   The thing object being edited by this form.
  *
  * @see things_edit_form()
  */
 function things_form_wrapper($things) {
   // Add the breadcrumb for the form's location.
   things_set_breadcrumb();
-  return drupal_get_form('things_edit_form', $things);
+  return drupal_get_form('thing_edit_form', $things);
 }
 
 
@@ -147,14 +147,14 @@ function things_form_wrapper($things) {
  * Form callback wrapper: delete a things.
  *
  * @param $things
- *   The things object being edited by this form.
+ *   The thing object being edited by this form.
  *
  * @see things_edit_form()
  */
 function things_delete_form_wrapper($things) {
   // Add the breadcrumb for the form's location.
   //things_set_breadcrumb();
-  return drupal_get_form('things_delete_form', $things);
+  return drupal_get_form('thing_delete_form', $things);
 }
 
 
@@ -162,8 +162,8 @@ function things_delete_form_wrapper($things) {
  * Form callback: create or edit a things.
  *
  * @param $things
- *   The things object to edit or for a create form an empty things object
- *     with only a things type defined.
+ *   The thing object to edit or for a create form an empty thing object
+ *     with only a thing type defined.
  */
 function things_edit_form($form, &$form_state, $things) {
   // Add the default field elements.
@@ -177,8 +177,8 @@ function things_edit_form($form, &$form_state, $things) {
   );
   
   // Add the field related form elements.
-  $form_state['things'] = $things;
-  field_attach_form('things', $things, $form, $form_state);
+  $form_state['thing'] = $things;
+  field_attach_form('thing', $things, $form, $form_state);
 
   $form['actions'] = array(
     '#type' => 'container',
@@ -196,47 +196,47 @@ function things_edit_form($form, &$form_state, $things) {
 
   $form['actions']['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Save things'),
-    '#submit' => $submit + array('things_edit_form_submit'),
+    '#value' => t('Save thing'),
+    '#submit' => $submit + array('thing_edit_form_submit'),
   );
   
   if (!empty($things->name)) {
     $form['actions']['delete'] = array(
       '#type' => 'submit',
-      '#value' => t('Delete things'),
+      '#value' => t('Delete thing'),
       '#suffix' => l(t('Cancel'), 'admin/drupal-of-things/things'),
-      '#submit' => $submit + array('things_form_submit_delete'),
+      '#submit' => $submit + array('thing_form_submit_delete'),
       '#weight' => 45,
     );
   }
 
   // We append the validate handler to #validate in case a form callback_wrapper
   // is used to add validate handlers earlier.
-  $form['#validate'][] = 'things_edit_form_validate';
+  $form['#validate'][] = 'thing_edit_form_validate';
   return $form;
 }
 
 
 /**
- * Form API validate callback for the things form
+ * Form API validate callback for the thing form
  */
 function things_edit_form_validate(&$form, &$form_state) {
-  $things = $form_state['things'];
+  $things = $form_state['thing'];
   
   // Notify field widgets to validate their data.
-  field_attach_form_validate('things', $things, $form, $form_state);
+  field_attach_form_validate('thing', $things, $form, $form_state);
 }
 
 
 /**
- * Form API submit callback for the things form.
+ * Form API submit callback for the thing form.
  * 
  * @todo remove hard-coded link
  */
 function things_edit_form_submit(&$form, &$form_state) {
   
-  $things = entity_ui_controller('things')->entityFormSubmitBuildEntity($form, $form_state);
-  // Save the things and go back to the list of things
+  $things = entity_ui_controller('thing')->entityFormSubmitBuildEntity($form, $form_state);
+  // Save the thing and go back to the list of things
   
   // Add in created and changed times.
   if ($things->is_new = isset($things->is_new) ? $things->is_new : 0){
@@ -255,7 +255,7 @@ function things_edit_form_submit(&$form, &$form_state) {
  * @todo Remove hard-coded path
  */
 function things_form_submit_delete(&$form, &$form_state) {
-  $form_state['redirect'] = 'admin/drupal-of-things/' . $form_state['things']->things_id . '/delete';
+  $form_state['redirect'] = 'admin/drupal-of-things/' . $form_state['thing']->things_id . '/delete';
 }
 
 
@@ -263,17 +263,17 @@ function things_form_submit_delete(&$form, &$form_state) {
  * Form callback: confirmation form for deleting a things.
  *
  * @param $things
- *   The things to delete
+ *   The thing to delete
  *
  * @see confirm_form()
  */
 function things_delete_form($form, &$form_state, $things) {
-  $form_state['things'] = $things;
+  $form_state['thing'] = $things;
 
-  $form['#submit'][] = 'things_delete_form_submit';
+  $form['#submit'][] = 'thing_delete_form_submit';
 
   $form = confirm_form($form,
-    t('Are you sure you want to delete things %name?', array('%name' => $things->name)),
+    t('Are you sure you want to delete thing %name?', array('%name' => $things->name)),
     'admin/drupal-of-things/things',
     '<p>' . t('This action cannot be undone.') . '</p>',
     t('Delete'),
@@ -288,12 +288,12 @@ function things_delete_form($form, &$form_state, $things) {
  * Submit callback for things_delete_form
  */
 function things_delete_form_submit($form, &$form_state) {
-  $things = $form_state['things'];
+  $things = $form_state['thing'];
 
   things_delete($things);
 
-  drupal_set_message(t('The things %name has been deleted.', array('%name' => $things->name)));
-  watchdog('things', 'Deleted things %name.', array('%name' => $things->name));
+  drupal_set_message(t('The thing %name has been deleted.', array('%name' => $things->name)));
+  watchdog('thing', 'Deleted thing %name.', array('%name' => $things->name));
 
   $form_state['redirect'] = 'admin/drupal-of-things/things';
 }
@@ -306,13 +306,13 @@ function things_delete_form_submit($form, &$form_state) {
  * @todo Pass this through a proper theme function
  */
 function things_add_page() {
-  $controller = entity_ui_controller('things');
+  $controller = entity_ui_controller('thing');
   return $controller->addPage();
 }
 
 
 /**
- * Displays the list of available things types for things creation.
+ * Displays the list of available thing types for thing creation.
  *
  * @ingroup themeable
  */
@@ -328,11 +328,11 @@ function theme_things_add_list($variables) {
     $output .= '</dl>';
   }
   else {
-    if (user_access('administer things types')) {
-      $output = '<p>' . t('Things Entities cannot be added because you have not created any things types yet. Go to the <a href="@create-things-type">things type creation page</a> to add a new things type.', array('@create-things-type' => url('admin/drupal-of-things/configuration/things-types/add'))) . '</p>';
+    if (user_access('administer thing types')) {
+      $output = '<p>' . t('Things Entities cannot be added because you have not created any thing types yet. Go to the <a href="@create-things-type">things type creation page</a> to add a new thing type.', array('@create-things-type' => url('admin/drupal-of-things/configuration/things-types/add'))) . '</p>';
     }
     else {
-      $output = '<p>' . t('No things types have been created yet for you to use.') . '</p>';
+      $output = '<p>' . t('No thing types have been created yet for you to use.') . '</p>';
     }
   }
 
@@ -344,7 +344,7 @@ function theme_things_add_list($variables) {
 
 
 /**
- * Sets the breadcrumb for administrative things pages.
+ * Sets the breadcrumb for administrative thing pages.
  */
 function things_set_breadcrumb() {
   $breadcrumb = array(

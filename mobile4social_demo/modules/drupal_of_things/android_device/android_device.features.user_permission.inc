@@ -10,60 +10,60 @@
 function android_device_user_default_permissions() {
   $permissions = array();
 
-  // Exported permission: 'administer things_ids'.
-  $permissions['administer things_ids'] = array(
-    'name' => 'administer things_ids',
+  // Exported permission: 'administer thing_ids'.
+  $permissions['administer thing_ids'] = array(
+    'name' => 'administer thing_ids',
     'roles' => array(
       'administrator' => 'administrator',
     ),
-    'module' => 'things_ids',
+    'module' => 'thing_ids',
   );
 
-  // Exported permission: 'create things services'.
-  $permissions['create things services'] = array(
-    'name' => 'create things services',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'mobile4social' => 'mobile4social',
-    ),
-    'module' => 'things_services',
-  );
-
-  // Exported permission: 'delete things services'.
-  $permissions['delete things services'] = array(
-    'name' => 'delete things services',
+  // Exported permission: 'create thing services'.
+  $permissions['create thing services'] = array(
+    'name' => 'create thing services',
     'roles' => array(
       'administrator' => 'administrator',
       'mobile4social' => 'mobile4social',
     ),
-    'module' => 'things_services',
+    'module' => 'thing_services',
   );
 
-  // Exported permission: 'edit any android_device things'.
-  $permissions['edit any android_device things'] = array(
-    'name' => 'edit any android_device things',
+  // Exported permission: 'delete thing services'.
+  $permissions['delete thing services'] = array(
+    'name' => 'delete thing services',
     'roles' => array(
       'administrator' => 'administrator',
       'mobile4social' => 'mobile4social',
     ),
-    'module' => 'things',
+    'module' => 'thing_services',
   );
 
-  // Exported permission: 'edit any field_device_id things_ids'.
-  $permissions['edit any field_device_id things_ids'] = array(
-    'name' => 'edit any field_device_id things_ids',
+  // Exported permission: 'edit any android_device thing'.
+  $permissions['edit any android_device thing'] = array(
+    'name' => 'edit any android_device thing',
     'roles' => array(
       'administrator' => 'administrator',
       'mobile4social' => 'mobile4social',
     ),
-    'module' => 'things_ids',
+    'module' => 'thing',
   );
 
-  // Exported permission: 'edit any field_gcm_id things_ids'.
-  $permissions['edit any field_gcm_id things_ids'] = array(
-    'name' => 'edit any field_gcm_id things_ids',
+  // Exported permission: 'edit any field_device_id thing_ids'.
+  $permissions['edit any field_device_id thing_ids'] = array(
+    'name' => 'edit any field_device_id thing_ids',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'mobile4social' => 'mobile4social',
+    ),
+    'module' => 'thing_ids',
+  );
+
+  // Exported permission: 'edit any field_gcm_id thing_ids'.
+  $permissions['edit any field_gcm_id thing_ids'] = array(
+    'name' => 'edit any field_gcm_id thing_ids',
     'roles' => array(),
-    'module' => 'things_ids',
+    'module' => 'thing_ids',
   );
 
   // Exported permission: 'get a system variable'.
@@ -77,51 +77,51 @@ function android_device_user_default_permissions() {
     'module' => 'services',
   );
 
-  // Exported permission: 'retrieve things services'.
-  $permissions['retrieve things services'] = array(
-    'name' => 'retrieve things services',
+  // Exported permission: 'retrieve thing services'.
+  $permissions['retrieve thing services'] = array(
+    'name' => 'retrieve thing services',
     'roles' => array(
       'administrator' => 'administrator',
       'mobile4social' => 'mobile4social',
     ),
-    'module' => 'things_services',
+    'module' => 'thing_services',
   );
 
-  // Exported permission: 'update things services'.
-  $permissions['update things services'] = array(
-    'name' => 'update things services',
+  // Exported permission: 'update thing services'.
+  $permissions['update thing services'] = array(
+    'name' => 'update thing services',
     'roles' => array(
       'administrator' => 'administrator',
       'mobile4social' => 'mobile4social',
     ),
-    'module' => 'things_services',
+    'module' => 'thing_services',
   );
 
-  // Exported permission: 'view any android_device things'.
-  $permissions['view any android_device things'] = array(
-    'name' => 'view any android_device things',
+  // Exported permission: 'view any android_device thing'.
+  $permissions['view any android_device thing'] = array(
+    'name' => 'view any android_device thing',
     'roles' => array(
       'administrator' => 'administrator',
       'mobile4social' => 'mobile4social',
     ),
-    'module' => 'things',
+    'module' => 'thing',
   );
 
-  // Exported permission: 'view any field_device_id things_ids'.
-  $permissions['view any field_device_id things_ids'] = array(
-    'name' => 'view any field_device_id things_ids',
+  // Exported permission: 'view any field_device_id thing_ids'.
+  $permissions['view any field_device_id thing_ids'] = array(
+    'name' => 'view any field_device_id thing_ids',
     'roles' => array(
       'administrator' => 'administrator',
       'mobile4social' => 'mobile4social',
     ),
-    'module' => 'things_ids',
+    'module' => 'thing_ids',
   );
 
-  // Exported permission: 'view any field_gcm_id things_ids'.
-  $permissions['view any field_gcm_id things_ids'] = array(
-    'name' => 'view any field_gcm_id things_ids',
+  // Exported permission: 'view any field_gcm_id thing_ids'.
+  $permissions['view any field_gcm_id thing_ids'] = array(
+    'name' => 'view any field_gcm_id thing_ids',
     'roles' => array(),
-    'module' => 'things_ids',
+    'module' => 'thing_ids',
   );
 
   return $permissions;

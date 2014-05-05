@@ -36,7 +36,7 @@ function android_device_field_default_field_bases() {
         'sort' => array(
           'direction' => 'ASC',
           'field' => 'none',
-          'property' => 'things_ids_id',
+          'property' => 'thing_ids_id',
           'type' => 'none',
         ),
         'target_bundles' => array(
@@ -44,7 +44,7 @@ function android_device_field_default_field_bases() {
         ),
       ),
       'handler_submit' => 'Change handler',
-      'target_type' => 'things_ids',
+      'target_type' => 'thing_ids',
     ),
     'translatable' => 0,
     'type' => 'entityreference',
@@ -76,7 +76,7 @@ function android_device_field_default_field_bases() {
         'sort' => array(
           'direction' => 'ASC',
           'field' => 'none',
-          'property' => 'things_ids_id',
+          'property' => 'thing_ids_id',
           'type' => 'none',
         ),
         'target_bundles' => array(
@@ -84,7 +84,7 @@ function android_device_field_default_field_bases() {
         ),
       ),
       'handler_submit' => 'Change handler',
-      'target_type' => 'things_ids',
+      'target_type' => 'thing_ids',
     ),
     'translatable' => 0,
     'type' => 'entityreference',
@@ -245,13 +245,13 @@ function android_device_field_default_field_bases() {
         'sort' => array(
           'direction' => 'ASC',
           'field' => 'field_device_id:target_id',
-          'property' => 'things_id',
+          'property' => 'thing_id',
           'type' => 'none',
         ),
         'target_bundles' => array(),
       ),
       'handler_submit' => 'Change handler',
-      'target_type' => 'things',
+      'target_type' => 'thing',
     ),
     'translatable' => 0,
     'type' => 'entityreference',

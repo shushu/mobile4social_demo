@@ -13,7 +13,7 @@ function android_device_default_services_endpoint() {
   $endpoint = new stdClass();
   $endpoint->disabled = FALSE; /* Edit this to true to make a default endpoint disabled initially */
   $endpoint->api_version = 3;
-  $endpoint->name = 'things';
+  $endpoint->name = 'thing';
   $endpoint->server = 'rest_server';
   $endpoint->path = 'mythings';
   $endpoint->authentication = array(
@@ -47,7 +47,7 @@ function android_device_default_services_endpoint() {
         ),
       ),
     ),
-    'things' => array(
+    'thing' => array(
       'operations' => array(
         'create' => array(
           'enabled' => '1',
@@ -96,7 +96,7 @@ function android_device_default_services_endpoint() {
     ),
   );
   $endpoint->debug = 1;
-  $export['things'] = $endpoint;
+  $export['thing'] = $endpoint;
 
   return $export;
 }

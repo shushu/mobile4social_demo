@@ -2,7 +2,7 @@
 
 /**
  * @file
- * things_ids editing UI.
+ * thing_ids editing UI.
  *
  * We make very little use of the EntityAPI interface for this - preferring instead to use
  * views. That offers more flexibility to change a UI that will, more often than not,
@@ -12,7 +12,7 @@
 /**
  * UI controller.
  */
-class things_idsUIController extends EntityDefaultUIController {
+class thing_idsUIController extends EntityDefaultUIController {
 
   /**
    * Overrides hook_menu() defaults. Main reason for doing this is that
@@ -40,68 +40,68 @@ class things_idsUIController extends EntityDefaultUIController {
     $items[$this->path . '/add'] = array(
       'title' => 'Add a Things Identifier',
       'description' => 'Add a new Things Identifier',
-      'page callback'  => 'things_ids_add_page',
-      'access callback'  => 'things_ids_access',
+      'page callback'  => 'thing_ids_add_page',
+      'access callback'  => 'thing_ids_access',
       'access arguments' => array('edit'),
       'type' => MENU_NORMAL_ITEM,
       'weight' => 20,
-      'file' => 'things_ids.admin.inc',
+      'file' => 'thing_ids.admin.inc',
       'file path' => drupal_get_path('module', $this->entityInfo['module'])
 
     );
     
     // Add menu items to add each different type of entity.
-    foreach (things_ids_get_types() as $type) {
+    foreach (thing_ids_get_types() as $type) {
       $items[$this->path . '/add/' . $type->type] = array(
         'title' => 'Add ' . $type->label,
-        'page callback' => 'things_ids_form_wrapper',
-        'page arguments' => array(things_ids_create(array('type' => $type->type))),
-        'access callback' => 'things_ids_access',
+        'page callback' => 'thing_ids_form_wrapper',
+        'page arguments' => array(thing_ids_create(array('type' => $type->type))),
+        'access callback' => 'thing_ids_access',
         'access arguments' => array('edit', 'edit ' . $type->type),
-        'file' => 'things_ids.admin.inc',
+        'file' => 'thing_ids.admin.inc',
         'file path' => drupal_get_path('module', $this->entityInfo['module'])
       );
     }
 
-    // Loading and editing things_ids entities
-    $items[$this->path . '/things_ids/' . $wildcard] = array(
-      'page callback' => 'things_ids_form_wrapper',
+    // Loading and editing thing_ids entities
+    $items[$this->path . '/thing_ids/' . $wildcard] = array(
+      'page callback' => 'thing_ids_form_wrapper',
       'page arguments' => array($id_count + 1),
-      'access callback' => 'things_ids_access',
+      'access callback' => 'thing_ids_access',
       'access arguments' => array('edit', $id_count + 1),
       'weight' => 0,
       'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
-      'file' => 'things_ids.admin.inc',
+      'file' => 'thing_ids.admin.inc',
       'file path' => drupal_get_path('module', $this->entityInfo['module'])
     );
-    $items[$this->path . '/things_ids/' . $wildcard . '/edit'] = array(
+    $items[$this->path . '/thing_ids/' . $wildcard . '/edit'] = array(
       'title' => 'Edit',
       'type' => MENU_DEFAULT_LOCAL_TASK,
       'weight' => -10,
       'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
     );
     
-    $items[$this->path . '/things_ids/' . $wildcard . '/delete'] = array(
+    $items[$this->path . '/thing_ids/' . $wildcard . '/delete'] = array(
       'title' => 'Delete',
-      'page callback' => 'things_ids_delete_form_wrapper',
+      'page callback' => 'thing_ids_delete_form_wrapper',
       'page arguments' => array($id_count + 1),
-      'access callback' => 'things_ids_access',
+      'access callback' => 'thing_ids_access',
       'access arguments' => array('edit', $id_count + 1),
       'type' => MENU_LOCAL_TASK,
       'context' => MENU_CONTEXT_INLINE,
       'weight' => 10,
-      'file' => 'things_ids.admin.inc',
+      'file' => 'thing_ids.admin.inc',
       'file path' => drupal_get_path('module', $this->entityInfo['module'])
     );
     
     // Menu item for viewing Things Identifiers
-    $items['things_ids/' . $wildcard] = array(
+    $items['thing_ids/' . $wildcard] = array(
       //'title' => 'Title',
-      'title callback' => 'things_ids_page_title',
+      'title callback' => 'thing_ids_page_title',
       'title arguments' => array(1),
-      'page callback' => 'things_ids_page_view',
+      'page callback' => 'thing_ids_page_view',
       'page arguments' => array(1),
-      'access callback' => 'things_ids_access',
+      'access callback' => 'thing_ids_access',
       'access arguments' => array('view', 1),
       'type' => MENU_CALLBACK,
     );
@@ -110,7 +110,7 @@ class things_idsUIController extends EntityDefaultUIController {
   
   
   /**
-   * Create the markup for the add things_ids Entities page within the class
+   * Create the markup for the add thing_ids Entities page within the class
    * so it can easily be extended/overriden.
    */ 
   public function addPage() {
@@ -122,63 +122,63 @@ class things_idsUIController extends EntityDefaultUIController {
       drupal_goto($item['href']);
     }    
         
-    return theme('things_ids_add_list', array('content' => $content));
+    return theme('thing_ids_add_list', array('content' => $content));
   }
   
 }
 
 
 /**
- * Form callback wrapper: create or edit a things_ids.
+ * Form callback wrapper: create or edit a thing_ids.
  *
- * @param $things_ids
- *   The things_ids object being edited by this form.
+ * @param $thing_ids
+ *   The thing_ids object being edited by this form.
  *
- * @see things_ids_edit_form()
+ * @see thing_ids_edit_form()
  */
-function things_ids_form_wrapper($things_ids) {
+function thing_ids_form_wrapper($thing_ids) {
   // Add the breadcrumb for the form's location.
-  things_ids_set_breadcrumb();
-  return drupal_get_form('things_ids_edit_form', $things_ids);
+  thing_ids_set_breadcrumb();
+  return drupal_get_form('thing_ids_edit_form', $thing_ids);
 }
 
 
 /**
- * Form callback wrapper: delete a things_ids.
+ * Form callback wrapper: delete a thing_ids.
  *
- * @param $things_ids
- *   The things_ids object being edited by this form.
+ * @param $thing_ids
+ *   The thing_ids object being edited by this form.
  *
- * @see things_ids_edit_form()
+ * @see thing_ids_edit_form()
  */
-function things_ids_delete_form_wrapper($things_ids) {
+function thing_ids_delete_form_wrapper($thing_ids) {
   // Add the breadcrumb for the form's location.
-  //things_ids_set_breadcrumb();
-  return drupal_get_form('things_ids_delete_form', $things_ids);
+  //thing_ids_set_breadcrumb();
+  return drupal_get_form('thing_ids_delete_form', $thing_ids);
 }
 
 
 /**
- * Form callback: create or edit a things_ids.
+ * Form callback: create or edit a thing_ids.
  *
- * @param $things_ids
- *   The things_ids object to edit or for a create form an empty things_ids object
+ * @param $thing_ids
+ *   The thing_ids object to edit or for a create form an empty thing_ids object
  *     with only a Things Identifier type defined.
  */
-function things_ids_edit_form($form, &$form_state, $things_ids) {
+function thing_ids_edit_form($form, &$form_state, $thing_ids) {
   // Add the default field elements.
   $form['token'] = array(
     '#type' => 'textfield',
     '#title' => t('Things Identifier Token'),
-    '#default_value' => isset($things_ids->token) ? $things_ids->token : '',
+    '#default_value' => isset($thing_ids->token) ? $thing_ids->token : '',
     '#maxlength' => 255,
     '#required' => TRUE,
     '#weight' => -5,
   );
   
   // Add the field related form elements.
-  $form_state['things_ids'] = $things_ids;
-  field_attach_form('things_ids', $things_ids, $form, $form_state);
+  $form_state['thing_ids'] = $thing_ids;
+  field_attach_form('thing_ids', $thing_ids, $form, $form_state);
 
   $form['actions'] = array(
     '#type' => 'container',
@@ -196,56 +196,56 @@ function things_ids_edit_form($form, &$form_state, $things_ids) {
 
   $form['actions']['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Save things_ids'),
-    '#submit' => $submit + array('things_ids_edit_form_submit'),
+    '#value' => t('Save thing_ids'),
+    '#submit' => $submit + array('thing_ids_edit_form_submit'),
   );
   
-  if (!empty($things_ids->token)) {
+  if (!empty($thing_ids->token)) {
     $form['actions']['delete'] = array(
       '#type' => 'submit',
-      '#value' => t('Delete things_ids'),
+      '#value' => t('Delete thing_ids'),
       '#suffix' => l(t('Cancel'), 'admin/drupal-of-things/identifiers'),
-      '#submit' => $submit + array('things_ids_form_submit_delete'),
+      '#submit' => $submit + array('thing_ids_form_submit_delete'),
       '#weight' => 45,
     );
   }
 
   // We append the validate handler to #validate in case a form callback_wrapper
   // is used to add validate handlers earlier.
-  $form['#validate'][] = 'things_ids_edit_form_validate';
+  $form['#validate'][] = 'thing_ids_edit_form_validate';
   return $form;
 }
 
 
 /**
- * Form API validate callback for the things_ids form
+ * Form API validate callback for the thing_ids form
  */
-function things_ids_edit_form_validate(&$form, &$form_state) {
-  $things_ids = $form_state['things_ids'];
+function thing_ids_edit_form_validate(&$form, &$form_state) {
+  $thing_ids = $form_state['thing_ids'];
   
   // Notify field widgets to validate their data.
-  field_attach_form_validate('things_ids', $things_ids, $form, $form_state);
+  field_attach_form_validate('thing_ids', $thing_ids, $form, $form_state);
 }
 
 
 /**
- * Form API submit callback for the things_ids form.
+ * Form API submit callback for the thing_ids form.
  * 
  * @todo remove hard-coded link
  */
-function things_ids_edit_form_submit(&$form, &$form_state) {
+function thing_ids_edit_form_submit(&$form, &$form_state) {
   
-  $things_ids = entity_ui_controller('things_ids')->entityFormSubmitBuildEntity($form, $form_state);
-  // Save the things_ids and go back to the list of Things Identifiers
+  $thing_ids = entity_ui_controller('thing_ids')->entityFormSubmitBuildEntity($form, $form_state);
+  // Save the thing_ids and go back to the list of Things Identifiers
   
   // Add in created and changed times.
-  if ($things_ids->is_new = isset($things_ids->is_new) ? $things_ids->is_new : 0){
-    $things_ids->created = time();
+  if ($thing_ids->is_new = isset($thing_ids->is_new) ? $thing_ids->is_new : 0){
+    $thing_ids->created = time();
   }
 
-  $things_ids->changed = time();
+  $thing_ids->changed = time();
   
-  $things_ids->save();
+  $thing_ids->save();
   $form_state['redirect'] = 'admin/drupal-of-things/identifiers';
 }
 
@@ -254,27 +254,27 @@ function things_ids_edit_form_submit(&$form, &$form_state) {
  * 
  * @todo Remove hard-coded path
  */
-function things_ids_form_submit_delete(&$form, &$form_state) {
-  $form_state['redirect'] = 'admin/drupal-of-things/identifiers/things_ids/' . $form_state['things_ids']->things_ids_id . '/delete';
+function thing_ids_form_submit_delete(&$form, &$form_state) {
+  $form_state['redirect'] = 'admin/drupal-of-things/identifiers/thing_ids/' . $form_state['thing_ids']->thing_ids_id . '/delete';
 }
 
 
 /**
- * Form callback: confirmation form for deleting a things_ids.
+ * Form callback: confirmation form for deleting a thing_ids.
  *
- * @param $things_ids
- *   The things_ids to delete
+ * @param $thing_ids
+ *   The thing_ids to delete
  *
  * @see confirm_form()
  */
-function things_ids_delete_form($form, &$form_state, $things_ids) {
-  $form_state['things_ids'] = $things_ids;
+function thing_ids_delete_form($form, &$form_state, $thing_ids) {
+  $form_state['thing_ids'] = $thing_ids;
 
-  $form['#submit'][] = 'things_ids_delete_form_submit';
+  $form['#submit'][] = 'thing_ids_delete_form_submit';
 
   $form = confirm_form($form,
-    t('Are you sure you want to delete things_ids %token?', array('%token' => $things_ids->token)),
-    'admin/drupal-of-things/identifiers/things_ids',
+    t('Are you sure you want to delete thing_ids %token?', array('%token' => $thing_ids->token)),
+    'admin/drupal-of-things/identifiers/thing_ids',
     '<p>' . t('This action cannot be undone.') . '</p>',
     t('Delete'),
     t('Cancel'),
@@ -285,15 +285,15 @@ function things_ids_delete_form($form, &$form_state, $things_ids) {
 }
 
 /**
- * Submit callback for things_ids_delete_form
+ * Submit callback for thing_ids_delete_form
  */
-function things_ids_delete_form_submit($form, &$form_state) {
-  $things_ids = $form_state['things_ids'];
+function thing_ids_delete_form_submit($form, &$form_state) {
+  $thing_ids = $form_state['thing_ids'];
 
-  things_ids_delete($things_ids);
+  thing_ids_delete($thing_ids);
 
-  drupal_set_message(t('The things_ids %token has been deleted.', array('%token' => $things_ids->token)));
-  watchdog('things_ids', 'Deleted Things Identifier %token.', array('%token' => $things_ids->token));
+  drupal_set_message(t('The thing_ids %token has been deleted.', array('%token' => $thing_ids->token)));
+  watchdog('thing_ids', 'Deleted Things Identifier %token.', array('%token' => $thing_ids->token));
 
   $form_state['redirect'] = 'admin/drupal-of-things/identifiers';
 }
@@ -301,26 +301,26 @@ function things_ids_delete_form_submit($form, &$form_state) {
 
 
 /**
- * Page to add things_ids Entities.
+ * Page to add thing_ids Entities.
  *
  * @todo Pass this through a proper theme function
  */
-function things_ids_add_page() {
-  $controller = entity_ui_controller('things_ids');
+function thing_ids_add_page() {
+  $controller = entity_ui_controller('thing_ids');
   return $controller->addPage();
 }
 
 
 /**
- * Displays the list of available Things Identifier types for things_ids creation.
+ * Displays the list of available Things Identifier types for thing_ids creation.
  *
  * @ingroup themeable
  */
-function theme_things_ids_add_list($variables) {
+function theme_thing_ids_add_list($variables) {
   $content = $variables['content'];
   $output = '';
   if ($content) {
-    $output = '<dl class="things_ids-type-list">';
+    $output = '<dl class="thing_ids-type-list">';
     foreach ($content as $item) {
       $output .= '<dt>' . l($item['title'], $item['href']) . '</dt>';
       $output .= '<dd>' . filter_xss_admin($item['description']) . '</dd>';
@@ -328,8 +328,8 @@ function theme_things_ids_add_list($variables) {
     $output .= '</dl>';
   }
   else {
-    if (user_access('administer things_ids types')) {
-      $output = '<p>' . t('Things Identifiers Entities cannot be added because you have not created any Things Identifier types yet. Go to the <a href="@create-things_ids-type">things_ids type creation page</a> to add a new Things Identifier type.', array('@create-things_ids-type' => url('admin/drupal-of-things/configuration/identifiers-types/add'))) . '</p>';
+    if (user_access('administer thing_ids types')) {
+      $output = '<p>' . t('Things Identifiers Entities cannot be added because you have not created any Things Identifier types yet. Go to the <a href="@create-thing_ids-type">thing_ids type creation page</a> to add a new Things Identifier type.', array('@create-thing_ids-type' => url('admin/drupal-of-things/configuration/identifiers-types/add'))) . '</p>';
     }
     else {
       $output = '<p>' . t('No Things Identifier types have been created yet for you to use.') . '</p>';
@@ -344,9 +344,9 @@ function theme_things_ids_add_list($variables) {
 
 
 /**
- * Sets the breadcrumb for administrative things_ids pages.
+ * Sets the breadcrumb for administrative thing_ids pages.
  */
-function things_ids_set_breadcrumb() {
+function thing_ids_set_breadcrumb() {
   $breadcrumb = array(
     l(t('Home'), '<front>'),
     l(t('Administration'), 'admin'),
