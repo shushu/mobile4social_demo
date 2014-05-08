@@ -3,7 +3,7 @@ description = Provide thing ids implementation for Drupal Of Things
 core = 7.x
 package = Drupal Of Things
 
-dependencies[] = things
+dependencies[] = thing
 
 files[] = thing_ids.admin.inc
 files[] = thing_ids_type.admin.inc

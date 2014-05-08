@@ -24,17 +24,17 @@ class ThingsTypeUIController extends EntityDefaultUIController {
 /**
  * Generates the thing type editing form.
  */
-function things_type_form($form, &$form_state, $things_type, $op = 'edit') {
+function thing_type_form($form, &$form_state, $thing_type, $op = 'edit') {
 
   if ($op == 'clone') {
-    $things_type->label .= ' (cloned)';
-    $things_type->type = '';
+    $thing_type->label .= ' (cloned)';
+    $thing_type->type = '';
   }
 
   $form['label'] = array(
     '#title' => t('Label'),
     '#type' => 'textfield',
-    '#default_value' => $things_type->label,
+    '#default_value' => $thing_type->label,
     '#description' => t('The human-readable name of this thing type.'),
     '#required' => TRUE,
     '#size' => 30,
@@ -42,7 +42,7 @@ function things_type_form($form, &$form_state, $things_type, $op = 'edit') {
   // Machine-readable type name.
   $form['type'] = array(
     '#type' => 'machine_name',
-    '#default_value' => isset($things_type->type) ? $things_type->type : '',
+    '#default_value' => isset($thing_type->type) ? $thing_type->type : '',
     '#maxlength' => 32,
     '#machine_name' => array(
       'exists' => 'thing_get_types',
@@ -64,15 +64,15 @@ function things_type_form($form, &$form_state, $things_type, $op = 'edit') {
 /**
  * Form API submit callback for the type form.
  */
-function things_type_form_submit(&$form, &$form_state) {
-  $things_type = entity_ui_form_submit_build_entity($form, $form_state);
-  $things_type->save();
-  $form_state['redirect'] = 'admin/drupal-of-things/configuration/things-types';
+function thing_type_form_submit(&$form, &$form_state) {
+  $thing_type = entity_ui_form_submit_build_entity($form, $form_state);
+  $thing_type->save();
+  $form_state['redirect'] = 'admin/drupal-of-things/configuration/thing-types';
 }
 
 /**
  * Form API submit callback for the delete button.
  */
-function things_type_form_submit_delete(&$form, &$form_state) {
-  $form_state['redirect'] = 'admin/drupal-of-things/configuration/things-types/manage/' . $form_state['thing_type']->type . '/delete';
+function thing_type_form_submit_delete(&$form, &$form_state) {
+  $form_state['redirect'] = 'admin/drupal-of-things/configuration/thing-types/manage/' . $form_state['thing_type']->type . '/delete';
 }

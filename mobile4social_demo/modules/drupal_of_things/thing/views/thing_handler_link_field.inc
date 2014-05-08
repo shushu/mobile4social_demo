@@ -6,7 +6,7 @@
  * as fields.
  */
 
-class things_handler_link_field extends views_handler_field {
+class thing_handler_link_field extends views_handler_field {
   function construct() {
     parent::construct();
 
@@ -39,8 +39,8 @@ class things_handler_link_field extends views_handler_field {
 
   function render($values) {
     $text = !empty($this->options['text']) ? $this->options['text'] : t('view');
-    $things_id = $values->{$this->aliases['thing_id']};
+    $thing_id = $values->{$this->aliases['thing_id']};
 
-    return l($text, 'thing/' . $things_id);
+    return l($text, 'thing/' . $thing_id);
   }
 }

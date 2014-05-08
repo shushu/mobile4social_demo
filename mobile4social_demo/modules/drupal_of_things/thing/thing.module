@@ -9,7 +9,7 @@
 /**
  * Implementation of hook_menu().
  */
-function things_menu() {
+function thing_menu() {
 
   $items = array();
 
@@ -47,7 +47,7 @@ function things_menu() {
 /**
  * Implements hook_menu_alter(). Move GCM settings into drupal-of-things.
  */
-function things_menu_alter(&$items) {
+function thing_menu_alter(&$items) {
   $gcm_settings = $items['admin/config/workflow/gcm/settings'];
   unset($items['admin/config/workflow/gcm/settings']);
   $items['admin/drupal-of-things/configuration/gcm'] = $gcm_settings;
@@ -64,7 +64,7 @@ function things_menu_alter(&$items) {
  * @return
  *   The output HTML.
  */
-function things_admin_menu_block_page() {
+function thing_admin_menu_block_page() {
   $item = menu_get_item();
   if ($content = system_admin_menu_block($item)) {
     $output = theme('admin_block_content', array('content' => $content));
@@ -75,7 +75,7 @@ function things_admin_menu_block_page() {
   return $output;
 }
 
-function things_admin() {
+function thing_admin() {
   $form = array();
 
   $form['thing_users_role'] = array(
@@ -91,7 +91,7 @@ function things_admin() {
 /*
  * Implementation of hook_hook_info
  */
-function things_hook_info() {
+function thing_hook_info() {
   $hooks['thing_create'] = array(
     'group' => 'thing',
   );
@@ -118,7 +118,7 @@ function things_hook_info() {
  * types of entities. See here: http://drupal.org/node/977380 for a discussion on this
  * choice.
  */
-function things_entity_info() {
+function thing_entity_info() {
   $return['thing'] = array(
     'label' => t('Thing'),
     // The entity class and controller class extend the classes provided by the
@@ -144,10 +144,10 @@ function things_entity_info() {
     'module' => 'thing',
     // The information below is used by the ThingsUIController (which extends the EntityDefaultUIController)
     'admin ui' => array(
-      'path' => 'admin/drupal-of-things/things',
+      'path' => 'admin/drupal-of-things/thing',
       'file' => 'thing.admin.inc',
       'controller class' => 'ThingsUIController',
-      'menu wildcard' => '%things',
+      'menu wildcard' => '%thing',
     ),
   );
   // The entity that holds information about the entity types	  
@@ -168,7 +168,7 @@ function things_entity_info() {
     'module' => 'thing',
     // Enable the entity API's admin UI.
     'admin ui' => array(
-      'path' => 'admin/drupal-of-things/configuration/things-types',
+      'path' => 'admin/drupal-of-things/configuration/thing-types',
       'file' => 'thing_type.admin.inc',
       'controller class' => 'ThingsTypeUIController',
     ),
@@ -186,13 +186,13 @@ function things_entity_info() {
  *
  * @todo This needs to be improved
  */
-function things_entity_info_alter(&$entity_info) {
-  foreach (things_get_types() as $type => $info) {
+function thing_entity_info_alter(&$entity_info) {
+  foreach (thing_get_types() as $type => $info) {
     $entity_info['thing']['bundles'][$type] = array(
       'label' => $info->label,
       'admin' => array(
-        'path' => 'admin/drupal-of-things/configuration/things-types/manage/%things_type',
-        'real path' => 'admin/drupal-of-things/configuration/things-types/manage/' . $type,
+        'path' => 'admin/drupal-of-things/configuration/thing-types/manage/%thing_type',
+        'real path' => 'admin/drupal-of-things/configuration/thing-types/manage/' . $type,
         'bundle argument' => 4,
         'access arguments' => array('administer thing types'),
       ),
@@ -204,7 +204,7 @@ function things_entity_info_alter(&$entity_info) {
 /**
  * Implements hook_permission().
  */
-function things_permission() {
+function thing_permission() {
   // We set up permisssions to manage entity types, manage all entities and the
   // permissions for each individual entity
   $permissions = array(
@@ -222,13 +222,13 @@ function things_permission() {
   );
   
   //Generate permissions per thing
-  foreach (things_get_types() as $type) {
+  foreach (thing_get_types() as $type) {
     $type_name = check_plain($type->type);
     $permissions += array(
-      "edit any $type_name things" => array(
+      "edit any $type_name thing" => array(
         'title' => t('%type_name: Edit any thing', array('%type_name' => $type->label)),
       ),
-      "view any $type_name things" => array(
+      "view any $type_name thing" => array(
         'title' => t('%type_name: View any thing', array('%type_name' => $type->label)),
       ),
     );
@@ -238,13 +238,13 @@ function things_permission() {
 
 
 /**
- * Determines whether the given user has access to a things.
+ * Determines whether the given user has access to a thing.
  *
  * @param $op
  *   The operation being performed. One of 'view', 'update', 'create', 'delete'
  *   or just 'edit' (being the same as 'create' or 'update').
  * @param $thing
- *   Optionally a thing or a thing type to check access for. If nothings is
+ *   Optionally a thing or a thing type to check access for. If nothing is
  *   given, access for all thing is determined.
  * @param $account
  *   The user to check for. Leave it to NULL to check for the global user.
@@ -257,7 +257,7 @@ function thing_access($op, $thing = NULL, $account = NULL) {
   }
   if (isset($thing) && $type_name = thing->type) {
     $op = ($op == 'view') ? 'view' : 'edit';
-    if (user_access("$op any $type_name things", $account)) {
+    if (user_access("$op any $type_name thing", $account)) {
       return TRUE;
     }
   }
@@ -268,7 +268,7 @@ function thing_access($op, $thing = NULL, $account = NULL) {
 /**
  * Access callback for the entity API.
  */
-function things_type_access($op, $type = NULL, $account = NULL) {
+function thing_type_access($op, $type = NULL, $account = NULL) {
   return user_access('administer thing types', $account);
 }
 
@@ -281,7 +281,7 @@ function things_type_access($op, $type = NULL, $account = NULL) {
  * @return ThingsType[]
  *   Depending whether $type isset, an array of thing types or a single one.
  */
-function things_get_types($type_name = NULL) {
+function thing_get_types($type_name = NULL) {
   // entity_load will get the Entity controller for our thing entity and call the load
   // function of that object - we are loading entities by name here.
   $types = entity_load_multiple_by_name('thing_type', isset($type_name) ? array($type_name) : FALSE);
@@ -297,8 +297,8 @@ function things_get_types($type_name = NULL) {
  * @return
  *   A thing type array or FALSE if $type does not exist.
  */
-function things_type_load($type) {
-  return things_get_types($type);
+function thing_type_load($type) {
+  return thing_get_types($type);
 }
 
 
@@ -313,10 +313,10 @@ function things_type_load($type) {
  * @return
  *   A fully-loaded $thing object or FALSE if it cannot be loaded.
  *
- * @see things_load_multiple()
+ * @see thing_load_multiple()
  */
-function things_load($thing_id, $reset = FALSE) {
-  $thing = things_load_multiple(array($thing_id), array(), $reset);
+function thing_load($thing_id, $reset = FALSE) {
+  $thing = thing_load_multiple(array($thing_id), array(), $reset);
   module_invoke_all('thing_load', $thing_id, reset($thing));
   return reset($thing);
 }
@@ -328,24 +328,24 @@ function things_load($thing_id, $reset = FALSE) {
  * @param $thing_ids
  *   An array of thing IDs.
  * @param $conditions
- *   An array of conditions to match against the {things} table.
+ *   An array of conditions to match against the {thing} table.
  * @param $reset
  *   A boolean indicating that the internal cache should be reset.
  * @return
- *   An array of thing objects, indexed by things_id.
+ *   An array of thing objects, indexed by thing_id.
  *
  * @see entity_load()
- * @see things_load()
+ * @see thing_load()
  */
-function things_load_multiple($thing_ids = array(), $conditions = array(), $reset = FALSE) {
+function thing_load_multiple($thing_ids = array(), $conditions = array(), $reset = FALSE) {
   return entity_load('thing', $thing_ids, $conditions, $reset);
 }
 
 
 /**
- * Deletes a things.
+ * Deletes a thing.
  */
-function things_delete(Things $thing) {
+function thing_delete(Things $thing) {
   module_invoke_all('thing_delete', $thing);
 
   $thing->delete();
@@ -353,12 +353,12 @@ function things_delete(Things $thing) {
 
 
 /**
- * Delete multiple things.
+ * Delete multiple thing.
  *
  * @param $thing_ids
  *   An array of thing IDs.
  */
-function things_delete_multiple(array $thing_ids) {
+function thing_delete_multiple(array $thing_ids) {
   entity_get_controller('thing')->delete($thing_ids);
 }
 
@@ -366,7 +366,7 @@ function things_delete_multiple(array $thing_ids) {
 /**
  * Create a thing object.
  */
-function things_create($values = array()) {
+function thing_create($values = array()) {
   $thing = entity_get_controller('thing')->create($values);
   module_invoke_all('thing_create', $thing);
   return $thing;
@@ -379,7 +379,7 @@ function things_create($values = array()) {
  * @param $thing
  *   The thing object.
  */
-function things_save(Things $thing) {
+function thing_save(Things $thing) {
   module_invoke_all('thing_save', $thing);
 
   return $thing->save();
@@ -389,7 +389,7 @@ function things_save(Things $thing) {
 /**
  * Saves a thing type to the db.
  */
-function things_type_save(ThingsType $type) {
+function thing_type_save(ThingsType $type) {
   $type->save();
 }
 
@@ -397,17 +397,17 @@ function things_type_save(ThingsType $type) {
 /**
  * Deletes a thing type from the db.
  */
-function things_type_delete(ThingsType $type) {
+function thing_type_delete(ThingsType $type) {
   $type->delete();
 }
 
 
 /**
- * URI callback for things
+ * URI callback for thing
  */
-function things_uri(Things $thing){
+function thing_uri(Things $thing){
   return array(
-    'path' => 'thing/' . $thing->things_id,
+    'path' => 'thing/' . $thing->thing_id,
   );
 }
 
@@ -415,18 +415,18 @@ function things_uri(Things $thing){
 /**
  * Menu title callback for showing individual entities
  */
-function things_page_title(Things $thing){
+function thing_page_title(Things $thing){
   return $thing->name;
 }
 
 
 /**
- * Sets up content to show an individual things
+ * Sets up content to show an individual thing
  * @todo - get rid of drupal_set_title();
  */
-function things_page_view($thing, $view_mode = 'full') {    
+function thing_page_view($thing, $view_mode = 'full') {
   $controller = entity_get_controller('thing');
-  $content = $controller->view(array($thing->things_id => $thing));
+  $content = $controller->view(array($thing->thing_id => $thing));
   drupal_set_title($thing->name);
   return $content;
 }
@@ -435,7 +435,7 @@ function things_page_view($thing, $view_mode = 'full') {
 /**
  * Implements hook_views_api().
  */
-function things_views_api() {
+function thing_views_api() {
   return array(
     'api' => 3,
     'path' => drupal_get_path('module', 'thing') . '/views',
@@ -446,7 +446,7 @@ function things_views_api() {
 /**
  * Implement hook_theme().
  */
-function things_theme() {
+function thing_theme() {
   return array(
     'thing_add_list' => array(
       'variables' => array('content' => array()),
@@ -463,10 +463,10 @@ function things_theme() {
 /**
  * Implements hook_menu_local_tasks_alter().
  */
-function things_menu_local_tasks_alter(&$data, $router_item, $root_path) {
-  // Add action link 'admin/drupal-of-things/configuration/things/add' on 'admin/structure/things'.
-  if ($root_path == 'admin/drupal-of-things/things') {
-    $item = menu_get_item('admin/drupal-of-things/things/add');
+function thing_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  // Add action link 'admin/drupal-of-things/configuration/thing/add' on 'admin/structure/thing'.
+  if ($root_path == 'admin/drupal-of-things/thing') {
+    $item = menu_get_item('admin/drupal-of-things/thing/add');
     if ($item['access']) {
       $data['actions']['output'][] = array(
         '#theme' => 'menu_local_action',
@@ -491,7 +491,7 @@ class Things extends Entity {
   }
 
   protected function defaultUri() {
-    return array('path' => 'thing/' . $this->things_id);
+    return array('path' => 'thing/' . $this->thing_id);
   }
   
   
@@ -528,7 +528,7 @@ class ThingsController extends EntityAPIController {
    * function.
    * 
    * @param $type
-   *   The machine-readable type of the things.
+   *   The machine-readable type of the thing.
    *
    * @return
    *   A thing object with all default fields initialized.
@@ -564,7 +564,7 @@ class ThingsTypeController extends EntityAPIControllerExportable {
    * function.
    * 
    * @param $type
-   *   The machine-readable type of the things.
+   *   The machine-readable type of the thing.
    *
    * @return
    *   A thing type object with all default fields initialized.

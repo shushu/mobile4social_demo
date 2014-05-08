@@ -9,7 +9,7 @@
  *   print a subset such as render($content['field_example']). Use
  *   hide($content['field_example']) to temporarily suppress the printing of a
  *   given element.
- * - $title: The name of the things
+ * - $title: The name of the thing
  * - $url: The standard URL for viewing a thing entity
  * - $page: TRUE if this is the main view page $url points too.
  * - $classes: String of classes that can be used to style contextually through
@@ -17,7 +17,7 @@
  *   preprocess functions. By default the following classes are available, where
  *   the parts enclosed by {} are replaced by the appropriate values:
  *   - entity-profile
- *   - things-{TYPE}
+ *   - thing-{TYPE}
  *
  * Other variables:
  * - $classes_array: Array of html class attribute values. It is flattened

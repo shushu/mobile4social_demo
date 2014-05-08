@@ -10,27 +10,27 @@
 /**
  * Implements hook_schema().
  */
-function things_schema() {
+function thing_schema() {
   $schema = array();
 
   $schema['thing'] = array(
     'description' => 'The base table for thing entities.',
     'fields' => array(
       'thing_id' => array(
-        'description' => 'Primary Key: Identifier for a things.',
+        'description' => 'Primary Key: Identifier for a thing.',
         'type' => 'serial',
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
       'type' => array(
-        'description' => 'The {things_type}.type of this things.',
+        'description' => 'The {thing_type}.type of this thing.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
         'default' => '',
       ),
       'language' => array(
-        'description' => 'The language of the things.',
+        'description' => 'The language of the thing.',
         'type' => 'varchar',
         'length' => 32,
         'not null' => TRUE,

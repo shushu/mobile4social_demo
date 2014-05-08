@@ -15,7 +15,7 @@ function android_device_default_services_endpoint() {
   $endpoint->api_version = 3;
   $endpoint->name = 'thing';
   $endpoint->server = 'rest_server';
-  $endpoint->path = 'mythings';
+  $endpoint->path = 'mything';
   $endpoint->authentication = array(
     'services' => 'services',
   );
