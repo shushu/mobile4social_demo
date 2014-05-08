@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Things editing UI.
+ * Thing editing UI.
  *
  * We make very little use of the EntityAPI interface for this - preferring instead to use
  * views. That offers more flexibility to change a UI that will, more often than not,
@@ -12,7 +12,7 @@
 /**
  * UI controller.
  */
-class ThingsUIController extends EntityDefaultUIController {
+class ThingUIController extends EntityDefaultUIController {
 
   /**
    * Overrides hook_menu() defaults. Main reason for doing this is that
@@ -25,7 +25,7 @@ class ThingsUIController extends EntityDefaultUIController {
     $wildcard = isset($this->entityInfo['admin ui']['menu wildcard']) ? $this->entityInfo['admin ui']['menu wildcard'] : '%' . $this->entityType;
 
     $items[$this->path] = array(
-      'title' => 'Things',
+      'title' => 'Thing',
       'description' => 'Add edit and update thing.',
       'page callback' => 'system_admin_menu_block_page',
       'access arguments' => array('access administration pages'),
@@ -110,7 +110,7 @@ class ThingsUIController extends EntityDefaultUIController {
   
   
   /**
-   * Create the markup for the add Things Entities page within the class
+   * Create the markup for the add Thing Entities page within the class
    * so it can easily be extended/overriden.
    */ 
   public function addPage() {
@@ -169,7 +169,7 @@ function thing_edit_form($form, &$form_state, $thing) {
   // Add the default field elements.
   $form['name'] = array(
     '#type' => 'textfield',
-    '#title' => t('Things Name'),
+    '#title' => t('Thing Name'),
     '#default_value' => isset($thing->name) ? $thing->name : '',
     '#maxlength' => 255,
     '#required' => TRUE,
@@ -301,7 +301,7 @@ function thing_delete_form_submit($form, &$form_state) {
 
 
 /**
- * Page to add Things Entities.
+ * Page to add Thing Entities.
  *
  * @todo Pass this through a proper theme function
  */
@@ -329,7 +329,7 @@ function theme_thing_add_list($variables) {
   }
   else {
     if (user_access('administer thing types')) {
-      $output = '<p>' . t('Things Entities cannot be added because you have not created any thing types yet. Go to the <a href="@create-thing-type">thing type creation page</a> to add a new thing type.', array('@create-thing-type' => url('admin/drupal-of-things/configuration/thing-types/add'))) . '</p>';
+      $output = '<p>' . t('Thing Entities cannot be added because you have not created any thing types yet. Go to the <a href="@create-thing-type">thing type creation page</a> to add a new thing type.', array('@create-thing-type' => url('admin/drupal-of-things/configuration/thing-types/add'))) . '</p>';
     }
     else {
       $output = '<p>' . t('No thing types have been created yet for you to use.') . '</p>';
@@ -350,7 +350,7 @@ function thing_set_breadcrumb() {
   $breadcrumb = array(
     l(t('Home'), '<front>'),
     l(t('Administration'), 'admin'),
-    l(t('Things'), 'admin/drupal-of-things/thing'),
+    l(t('Thing'), 'admin/drupal-of-things/thing'),
   );
 
   drupal_set_breadcrumb($breadcrumb);

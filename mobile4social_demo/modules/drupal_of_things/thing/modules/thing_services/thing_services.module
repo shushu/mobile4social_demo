@@ -6,20 +6,20 @@
 function thing_services_permission() {
   return array(
     'create thing services' => array(
-      'title' => t('Create Things services'), 
-      'description' => t('Create Things services'),
+      'title' => t('Create Thing services'),
+      'description' => t('Create Thing services'),
     ),
     'update thing services' => array(
-      'title' => t('Update Things services'), 
-      'description' => t('Update Things services'),
+      'title' => t('Update Thing services'),
+      'description' => t('Update Thing services'),
     ),
     'delete thing services' => array(
-      'title' => t('Delete Things services'), 
-      'description' => t('Delete Things services'),
+      'title' => t('Delete Thing services'),
+      'description' => t('Delete Thing services'),
     ),
     'retrieve thing services' => array(
-      'title' => t('Retrieve Things services'), 
-      'description' => t('Retrieve Things services'),
+      'title' => t('Retrieve Thing services'),
+      'description' => t('Retrieve Thing services'),
     ),
   );
 }
@@ -33,7 +33,7 @@ function thing_services_services_resources() {
       'name' => 'owner',
       'optional' => TRUE,
       'source' => array('data' => 'owner'),
-      'description' => 'Things owner', 
+      'description' => 'Thing owner',
       'type' => 'string',
     ),
     array (
@@ -48,7 +48,7 @@ function thing_services_services_resources() {
       'name' => 'updater',
       'optional' => TRUE,
       'source' => array('data' => 'updater'),
-      'description' => 'Things updater',
+      'description' => 'Thing updater',
       'type' => 'int',
     ),
     array (
@@ -77,14 +77,14 @@ function thing_services_services_resources() {
             'name' => 'owner',
             'optional' => TRUE,
             'source' => array('data' => 'owner'),
-            'description' => 'Things owner', 
+            'description' => 'Thing owner',
             'type' => 'string',
           ),
           array (
             'name' => 'thingname',
             'optional' => TRUE,
             'source' => array('data' => 'thingname'),
-            'description' => 'Things name',
+            'description' => 'Thing name',
             'type' => 'string',
             'default value' => 'New thing',
           ),
@@ -92,7 +92,7 @@ function thing_services_services_resources() {
             'name' => 'updater',
             'optional' => TRUE,
             'source' => array('data' => 'updater'),
-            'description' => 'Things updater',
+            'description' => 'Thing updater',
             'type' => 'int',
           ),
           array (
@@ -113,7 +113,7 @@ function thing_services_services_resources() {
             'name' => 'type',
             'optional' => FALSE,
             'source' => array('data' => 'type'),
-            'description' => 'Things type', 
+            'description' => 'Thing type',
             'type' => 'string',
             'default value' => 'android_device',
           ),
@@ -128,28 +128,28 @@ function thing_services_services_resources() {
             'name' => 'id',
             'optional' => FALSE, 
             'source' => array('path' => 0),
-            'description' => 'Things id', 
+            'description' => 'Thing id',
             'type' => 'int',
           ),
           array (
             'name' => 'thingname',
             'optional' => TRUE,
             'source' => array('data' => 'thingname'),
-            'description' => 'Things name',
+            'description' => 'Thing name',
             'type' => 'string',
           ),
           array (
             'name' => 'owner',
             'optional' => TRUE,
             'source' => array('data' => 'owner'),
-            'description' => 'Things owner', 
+            'description' => 'Thing owner',
             'type' => 'string',
           ),
           array (
             'name' => 'updater',
             'optional' => TRUE,
             'source' => array('data' => 'updater'),
-            'description' => 'Things updater',
+            'description' => 'Thing updater',
             'type' => 'int',
           ),
           array (
@@ -177,7 +177,7 @@ function thing_services_services_resources() {
             'name' => 'id',
             'optional' => FALSE, 
             'source' => array('path' => 0),
-            'description' => 'Things id', 
+            'description' => 'Thing id',
             'type' => 'int',
           ),
         ),
@@ -191,7 +191,7 @@ function thing_services_services_resources() {
             'name' => 'id',
             'optional' => FALSE, 
             'source' => array('path' => 0),
-            'description' => 'Things id', 
+            'description' => 'Thing id',
             'type' => 'int',
           ),
         ),
@@ -271,7 +271,7 @@ function _android_device_update($id, $thing_name, $owner, $updater, $identifier,
 
   $id = intval($id);
 
-  // has ID - try to fetch the Things
+  // has ID - try to fetch the Thing
   $android = thing_load($id);
 
   if ($android) {
@@ -279,7 +279,7 @@ function _android_device_update($id, $thing_name, $owner, $updater, $identifier,
     if ($android->type == "android_device") {
       $error = _update_android_device($android, $thing_name, $owner, $identifier_type, $identifier, $updater);
     } else {
-      $return = services_error(t('Things type \'@type\' is currently not supported', array('@type' => $android->type)), 406);
+      $return = services_error(t('Thing type \'@type\' is currently not supported', array('@type' => $android->type)), 406);
     }
 
   } else {
@@ -510,7 +510,7 @@ function _thing_create( $owner, $thing_name, $updater, $identifier, $identifiert
   if ($type === "android_device") {
     $return = _android_device_create($type, $thing_name, $owner, $updater, $identifier, $identifiertype);
   } else {
-    $return = services_error(t('Things type @type is currently not supported', array('@type' => $type)), 406);
+    $return = services_error(t('Thing type @type is currently not supported', array('@type' => $type)), 406);
   }
   // TODO: think on needed hooks and/or Rules actions
   return $return;

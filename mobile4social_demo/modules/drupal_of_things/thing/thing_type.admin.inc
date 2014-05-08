@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Things type editing UI.
+ * Thing type editing UI.
  */
 
 /**
  * UI controller.
  */
-class ThingsTypeUIController extends EntityDefaultUIController {
+class ThingTypeUIController extends EntityDefaultUIController {
 
   /**
    * Overrides hook_menu() defaults.

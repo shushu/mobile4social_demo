@@ -1,4 +1,4 @@
-name = Things services
+name = Thing services
 description = Provides needed Services to Drupal Of Things
 core = 7.x
 package = Drupal Of Things
@@ -10,6 +10,6 @@ dependencies[] = thing_ids
 ; Information added by drupal.org packaging script on 2012-12-04
 version = "7.x-1.1"
 core = "7.x"
-project = "Things"
+project = "Thing"
 datestamp = "1354617525"
 

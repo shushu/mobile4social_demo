@@ -53,19 +53,19 @@ function thing_ids_views_default_views() {
 
   $view = new view;
   $view->name = 'thing_ids';
-  $view->description = 'A list of all Things Identifiers';
-  $view->tag = 'Things Identifiers';
+  $view->description = 'A list of all Thing Identifiers';
+  $view->tag = 'Thing Identifiers';
   $view->base_table = 'thing_ids';
-  $view->human_name = 'Things Identifiers';
+  $view->human_name = 'Thing Identifiers';
   $view->core = 7;
   $view->api_version = '3.0-alpha1';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Things Identifiers';
+  $handler->display->display_options['title'] = 'Thing Identifiers';
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'create any Things Identifier type';
+  $handler->display->display_options['access']['perm'] = 'create any Thing Identifier type';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -101,7 +101,7 @@ function thing_ids_views_default_views() {
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['label'] = 'Empty ';
   $handler->display->display_options['empty']['area']['empty'] = FALSE;
-  $handler->display->display_options['empty']['area']['content'] = 'No Things Identifiers have been created yet';
+  $handler->display->display_options['empty']['area']['content'] = 'No Thing Identifiers have been created yet';
   /* Field: thing_ids: thing_ids ID */
   $handler->display->display_options['fields']['thing_ids_id']['id'] = 'thing_ids_id';
   $handler->display->display_options['fields']['thing_ids_id']['table'] = 'thing_ids';
@@ -217,12 +217,12 @@ function thing_ids_views_default_views() {
   $handler->display->display_options['menu']['context_only_inline'] = 0;
   $handler->display->display_options['tab_options']['type'] = 'normal';
   $handler->display->display_options['tab_options']['title'] = 'Identifiers';
-  $handler->display->display_options['tab_options']['description'] = 'Manage Things Identifiers';
+  $handler->display->display_options['tab_options']['description'] = 'Manage Thing Identifiers';
   $handler->display->display_options['tab_options']['weight'] = '0';
   $handler->display->display_options['tab_options']['name'] = 'management';
   $translatables['thing_ids'] = array(
     t('Master'),
-    t('Things Identifiers'),
+    t('Thing Identifiers'),
     t('more'),
     t('Apply'),
     t('Reset'),
@@ -233,7 +233,7 @@ function thing_ids_views_default_views() {
     t('- All -'),
     t('Offset'),
     t('Empty '),
-    t('No Things Identifiers have been created yet'),
+    t('No Thing Identifiers have been created yet'),
     t('thing_ids ID'),
     t('.'),
     t(','),

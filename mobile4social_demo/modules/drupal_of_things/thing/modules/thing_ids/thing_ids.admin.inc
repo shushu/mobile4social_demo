@@ -25,21 +25,21 @@ class thing_idsUIController extends EntityDefaultUIController {
     $wildcard = isset($this->entityInfo['admin ui']['menu wildcard']) ? $this->entityInfo['admin ui']['menu wildcard'] : '%' . $this->entityType;
 
     $items[$this->path] = array(
-      'title' => 'Things Identifiers',
-      'description' => 'Add edit and update Things Identifiers.',
+      'title' => 'Thing Identifiers',
+      'description' => 'Add edit and update Thing Identifiers.',
       'page callback' => 'system_admin_menu_block_page',
       'access arguments' => array('access administration pages'),
       'file path' => drupal_get_path('module', 'system'),
       'file' => 'system.admin.inc',
     );
     
-    // Change the overview menu type for the list of Things Identifiers.
+    // Change the overview menu type for the list of Thing Identifiers.
     $items[$this->path]['type'] = MENU_LOCAL_TASK;
     
     // Change the add page menu to multiple types of entities
     $items[$this->path . '/add'] = array(
-      'title' => 'Add a Things Identifier',
-      'description' => 'Add a new Things Identifier',
+      'title' => 'Add a Thing Identifier',
+      'description' => 'Add a new Thing Identifier',
       'page callback'  => 'thing_ids_add_page',
       'access callback'  => 'thing_ids_access',
       'access arguments' => array('edit'),
@@ -94,7 +94,7 @@ class thing_idsUIController extends EntityDefaultUIController {
       'file path' => drupal_get_path('module', $this->entityInfo['module'])
     );
     
-    // Menu item for viewing Things Identifiers
+    // Menu item for viewing Thing Identifiers
     $items['thing_ids/' . $wildcard] = array(
       //'title' => 'Title',
       'title callback' => 'thing_ids_page_title',
@@ -163,13 +163,13 @@ function thing_ids_delete_form_wrapper($thing_ids) {
  *
  * @param $thing_ids
  *   The thing_ids object to edit or for a create form an empty thing_ids object
- *     with only a Things Identifier type defined.
+ *     with only a Thing Identifier type defined.
  */
 function thing_ids_edit_form($form, &$form_state, $thing_ids) {
   // Add the default field elements.
   $form['token'] = array(
     '#type' => 'textfield',
-    '#title' => t('Things Identifier Token'),
+    '#title' => t('Thing Identifier Token'),
     '#default_value' => isset($thing_ids->token) ? $thing_ids->token : '',
     '#maxlength' => 255,
     '#required' => TRUE,
@@ -236,7 +236,7 @@ function thing_ids_edit_form_validate(&$form, &$form_state) {
 function thing_ids_edit_form_submit(&$form, &$form_state) {
   
   $thing_ids = entity_ui_controller('thing_ids')->entityFormSubmitBuildEntity($form, $form_state);
-  // Save the thing_ids and go back to the list of Things Identifiers
+  // Save the thing_ids and go back to the list of Thing Identifiers
   
   // Add in created and changed times.
   if ($thing_ids->is_new = isset($thing_ids->is_new) ? $thing_ids->is_new : 0){
@@ -293,7 +293,7 @@ function thing_ids_delete_form_submit($form, &$form_state) {
   thing_ids_delete($thing_ids);
 
   drupal_set_message(t('The thing_ids %token has been deleted.', array('%token' => $thing_ids->token)));
-  watchdog('thing_ids', 'Deleted Things Identifier %token.', array('%token' => $thing_ids->token));
+  watchdog('thing_ids', 'Deleted Thing Identifier %token.', array('%token' => $thing_ids->token));
 
   $form_state['redirect'] = 'admin/drupal-of-things/identifiers';
 }
@@ -312,7 +312,7 @@ function thing_ids_add_page() {
 
 
 /**
- * Displays the list of available Things Identifier types for thing_ids creation.
+ * Displays the list of available Thing Identifier types for thing_ids creation.
  *
  * @ingroup themeable
  */
@@ -329,10 +329,10 @@ function theme_thing_ids_add_list($variables) {
   }
   else {
     if (user_access('administer thing_ids types')) {
-      $output = '<p>' . t('Things Identifiers Entities cannot be added because you have not created any Things Identifier types yet. Go to the <a href="@create-thing_ids-type">thing_ids type creation page</a> to add a new Things Identifier type.', array('@create-thing_ids-type' => url('admin/drupal-of-things/configuration/identifiers-types/add'))) . '</p>';
+      $output = '<p>' . t('Thing Identifiers Entities cannot be added because you have not created any Thing Identifier types yet. Go to the <a href="@create-thing_ids-type">thing_ids type creation page</a> to add a new Thing Identifier type.', array('@create-thing_ids-type' => url('admin/drupal-of-things/configuration/identifiers-types/add'))) . '</p>';
     }
     else {
-      $output = '<p>' . t('No Things Identifier types have been created yet for you to use.') . '</p>';
+      $output = '<p>' . t('No Thing Identifier types have been created yet for you to use.') . '</p>';
     }
   }
 

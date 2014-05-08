@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Providing extra functionality for the Things UI via views.
+ * Providing extra functionality for the Thing UI via views.
  */
 
 
@@ -54,14 +54,14 @@ function thing_views_default_views() {
   $view->description = 'A list of all thing';
   $view->tag = 'thing';
   $view->base_table = 'thing';
-  $view->human_name = 'Things';
+  $view->human_name = 'Thing';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Things';
+  $handler->display->display_options['title'] = 'Thing';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'create any thing type';
@@ -96,24 +96,24 @@ function thing_views_default_views() {
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['label'] = 'Empty ';
   $handler->display->display_options['empty']['area']['content'] = 'No thing have been created yet';
-  /* Field: Things: Things ID */
+  /* Field: Thing: Thing ID */
   $handler->display->display_options['fields']['thing_id']['id'] = 'thing_id';
   $handler->display->display_options['fields']['thing_id']['table'] = 'thing';
   $handler->display->display_options['fields']['thing_id']['field'] = 'thing_id';
-  /* Field: Things: Type */
+  /* Field: Thing: Type */
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'thing';
   $handler->display->display_options['fields']['type']['field'] = 'type';
-  /* Field: Things: Name */
+  /* Field: Thing: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'thing';
   $handler->display->display_options['fields']['name']['field'] = 'name';
-  /* Field: Things: Link */
+  /* Field: Thing: Link */
   $handler->display->display_options['fields']['link_thing']['id'] = 'link_thing';
   $handler->display->display_options['fields']['link_thing']['table'] = 'thing';
   $handler->display->display_options['fields']['link_thing']['field'] = 'link_thing';
   $handler->display->display_options['fields']['link_thing']['label'] = 'View';
-  /* Field: Things: Operations links */
+  /* Field: Thing: Operations links */
   $handler->display->display_options['fields']['operations']['id'] = 'operations';
   $handler->display->display_options['fields']['operations']['table'] = 'thing';
   $handler->display->display_options['fields']['operations']['field'] = 'operations';
@@ -122,7 +122,7 @@ function thing_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'thing_admin_page');
   $handler->display->display_options['path'] = 'admin/drupal-of-things/thing';
   $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Things';
+  $handler->display->display_options['menu']['title'] = 'Thing';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
@@ -134,7 +134,7 @@ function thing_views_default_views() {
   $handler->display->display_options['tab_options']['name'] = 'management';
   $translatables['thing'] = array(
     t('Master'),
-    t('Things'),
+    t('Thing'),
     t('more'),
     t('Apply'),
     t('Reset'),
@@ -150,7 +150,7 @@ function thing_views_default_views() {
     t('last »'),
     t('Empty '),
     t('No thing have been created yet'),
-    t('Things ID'),
+    t('Thing ID'),
     t('.'),
     t(','),
     t('Type'),

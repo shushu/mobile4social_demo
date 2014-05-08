@@ -63,21 +63,21 @@ function thing_ids_schema() {
   );
 
   $schema['thing_ids_type'] = array(
-    'description' => 'Stores information about defined Things Identifier types.',
+    'description' => 'Stores information about defined Thing Identifier types.',
     'fields' => array(
       'id' => array(
         'type' => 'serial',
         'not null' => TRUE,
-        'description' => 'Primary Key: Unique Things Identifier type thing_ids.',
+        'description' => 'Primary Key: Unique Thing Identifier type thing_ids.',
       ),
       'type' => array(
-        'description' => 'The machine-readable name of this Things Identifier type.',
+        'description' => 'The machine-readable name of this Thing Identifier type.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
       ),
       'label' => array(
-        'description' => 'The human-readable name of this Things Identifier type.',
+        'description' => 'The human-readable name of this Thing Identifier type.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
@@ -88,14 +88,14 @@ function thing_ids_schema() {
         'not null' => TRUE,
         'default' => 0,
         'size' => 'tiny',
-        'description' => 'The weight of this Things Identifier type in relation to others.',
+        'description' => 'The weight of this Thing Identifier type in relation to others.',
       ),
       'data' => array(
         'type' => 'text',
         'not null' => FALSE,
         'size' => 'big',
         'serialize' => TRUE,
-        'description' => 'A serialized array of additional data related to this Things Identifier type.',
+        'description' => 'A serialized array of additional data related to this Thing Identifier type.',
       ),
     ) + entity_exportable_schema_fields(),
     'primary key' => array('id'),

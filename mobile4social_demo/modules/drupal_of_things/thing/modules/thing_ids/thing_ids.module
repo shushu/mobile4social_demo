@@ -17,7 +17,7 @@
  */
 function thing_ids_entity_info() {
   $return['thing_ids'] = array(
-    'label' => t('Things Identifiers'),
+    'label' => t('Thing Identifiers'),
     // The entity class and controller class extend the classes provided by the
     // Entity API
     'entity class' => 'thing_ids',
@@ -28,7 +28,7 @@ function thing_ids_entity_info() {
         'id' => 'thing_ids_id',
         'bundle' => 'type',
     ),
-    // Bundles are defined by the Things Identifier types below
+    // Bundles are defined by the Thing Identifier types below
     'bundles' => array(),
     // Bundle keys tell the FieldAPI how to extract information from the bundle objects
     'bundle keys' => array(
@@ -49,7 +49,7 @@ function thing_ids_entity_info() {
   );
   // The entity that holds information about the entity types	  
   $return['thing_ids_type'] = array(
-    'label' => t('Things Identifiers Type'),
+    'label' => t('Thing Identifiers Type'),
     'entity class' => 'thing_idsType',
     'controller class' => 'thing_idsTypeController',
     'base table' => 'thing_ids_type',
@@ -78,8 +78,8 @@ function thing_ids_entity_info() {
 /**
  * Implements hook_entity_info_alter().
  *
- * We are adding the info about the Things Identifier types via a hook to avoid a recursion
- * issue as loading the Things Identifier types requires the entity info as well.
+ * We are adding the info about the Thing Identifier types via a hook to avoid a recursion
+ * issue as loading the Thing Identifier types requires the entity info as well.
  *
  * @todo This needs to be improved
  */
@@ -107,10 +107,10 @@ function thing_ids_permission() {
   $permissions = array(
     'administer thing_ids types' => array(
       'title' => t('Administer thing_ids types'),
-      'description' => t('Create and delete fields for Things Identifier types, and set their permissions.'),
+      'description' => t('Create and delete fields for Thing Identifier types, and set their permissions.'),
     ),
     'administer thing_ids' => array(
-      'title' => t('Administer Things Identifiers'),
+      'title' => t('Administer Thing Identifiers'),
       'description' => t('Edit and delete all thing_ids'),
     ),  
   );
@@ -138,8 +138,8 @@ function thing_ids_permission() {
  *   The operation being performed. One of 'view', 'update', 'create', 'delete'
  *   or just 'edit' (being the same as 'create' or 'update').
  * @param $thing_ids
- *   Optionally a thing_ids or a Things Identifier type to check access for. If nothing_ids is
- *   given, access for all Things Identifiers is determined.
+ *   Optionally a thing_ids or a Thing Identifier type to check access for. If nothing_ids is
+ *   given, access for all Thing Identifiers is determined.
  * @param $account
  *   The user to check for. Leave it to NULL to check for the global user.
  * @return boolean
@@ -168,12 +168,12 @@ function thing_ids_type_access($op, $type = NULL, $account = NULL) {
 
 
 /**
- * Gets an array of all Things Identifier types, keyed by the type name.
+ * Gets an array of all Thing Identifier types, keyed by the type name.
  *
  * @param $type_name
  *   If set, the type with the given name is returned.
  * @return thing_idsType[]
- *   Depending whether $type isset, an array of Things Identifier types or a single one.
+ *   Depending whether $type isset, an array of Thing Identifier types or a single one.
  */
 function thing_ids_get_types($type_name = NULL) {
   // entity_load will get the Entity controller for our thing_ids entity and call the load
@@ -184,12 +184,12 @@ function thing_ids_get_types($type_name = NULL) {
 
 
 /**
- * Menu argument loader; Load a Things Identifier type by string.
+ * Menu argument loader; Load a Thing Identifier type by string.
  *
  * @param $type
- *   The machine-readable name of a Things Identifier type to load.
+ *   The machine-readable name of a Thing Identifier type to load.
  * @return
- *   A Things Identifier type array or FALSE if $type does not exist.
+ *   A Thing Identifier type array or FALSE if $type does not exist.
  */
 function thing_ids_type_load($type) {
   return thing_ids_get_types($type);
@@ -216,7 +216,7 @@ function thing_ids_load($thing_ids_id, $reset = FALSE) {
 
 
 /**
- * Load multiple Things Identifiers based on certain conditions.
+ * Load multiple Thing Identifiers based on certain conditions.
  *
  * @param $thing_ids_ids
  *   An array of thing_ids IDs.
@@ -244,7 +244,7 @@ function thing_ids_delete(thing_ids $thing_ids) {
 
 
 /**
- * Delete multiple Things Identifiers.
+ * Delete multiple Thing Identifiers.
  *
  * @param $thing_ids_ids
  *   An array of thing_ids IDs.
@@ -274,7 +274,7 @@ function thing_ids_save(thing_ids $thing_ids) {
 
 
 /**
- * Saves a Things Identifier type to the db.
+ * Saves a Thing Identifier type to the db.
  */
 function thing_ids_type_save(thing_idsType $type) {
   $type->save();
@@ -282,7 +282,7 @@ function thing_ids_type_save(thing_idsType $type) {
 
 
 /**
- * Deletes a Things Identifier type from the db.
+ * Deletes a Thing Identifier type from the db.
  */
 function thing_ids_type_delete(thing_idsType $type) {
   $type->delete();
@@ -290,7 +290,7 @@ function thing_ids_type_delete(thing_idsType $type) {
 
 
 /**
- * URI callback for Things Identifiers
+ * URI callback for Thing Identifiers
  */
 function thing_ids_uri(thing_ids $thing_ids){
   return array(
@@ -386,7 +386,7 @@ class thing_ids extends Entity {
 
 
 /**
- * The class used for Things Identifier type entities
+ * The class used for Thing Identifier type entities
  */
 class thing_idsType extends Entity {
   
@@ -446,15 +446,15 @@ class thing_idsTypeController extends EntityAPIControllerExportable {
   }
   
    /**
-   * Create a Things Identifier type - we first set up the values that are specific
-   * to our Things Identifier type schema but then also go through the EntityAPIController
+   * Create a Thing Identifier type - we first set up the values that are specific
+   * to our Thing Identifier type schema but then also go through the EntityAPIController
    * function.
    * 
    * @param $type
    *   The machine-readable type of the thing_ids.
    *
    * @return
-   *   A Things Identifier type object with all default fields initialized.
+   *   A Thing Identifier type object with all default fields initialized.
    */
   public function create(array $values = array()) {
     // Add values that are specific to our thing_ids
