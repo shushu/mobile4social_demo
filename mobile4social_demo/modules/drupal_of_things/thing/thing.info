@@ -1,0 +1,16 @@
+name = Drupal Of Things
+description = Provide core implementation for Drupal Of Things
+core = 7.x
+package = Drupal Of Things
+
+dependencies[] = entity
+dependencies[] = views
+dependencies[] = views_rules
+
+files[] = thing.admin.inc
+files[] = thing_type.admin.inc
+files[] = views/thing.views.inc
+files[] = views/thing_handler_link_field.inc
+files[] = views/thing_handler_delete_link_field.inc
+files[] = views/thing_handler_edit_link_field.inc
+files[] = views/thing_handler_thing_operations_field.inc

@@ -6,11 +6,11 @@
  * as fields.
  */
 
-class things_ids_handler_link_field extends views_handler_field {
+class thing_ids_handler_link_field extends views_handler_field {
   function construct() {
     parent::construct();
 
-    $this->additional_fields['things_ids_id'] = 'things_ids_id';
+    $this->additional_fields['thing_ids_id'] = 'thing_ids_id';
     $this->additional_fields['type'] = 'type';
   }
 
@@ -39,8 +39,8 @@ class things_ids_handler_link_field extends views_handler_field {
 
   function render($values) {
     $text = !empty($this->options['text']) ? $this->options['text'] : t('view');
-    $things_ids_id = $values->{$this->aliases['things_ids_id']};
+    $thing_ids_id = $values->{$this->aliases['thing_ids_id']};
 
-    return l($text, 'things_ids/' . $things_ids_id);
+    return l($text, 'thing_ids/' . $thing_ids_id);
   }
 }

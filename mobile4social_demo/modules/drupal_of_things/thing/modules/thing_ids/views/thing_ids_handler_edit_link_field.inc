@@ -7,7 +7,7 @@
  */
 
 
-class things_handler_edit_link_field extends things_handler_link_field {
+class thing_ids_handler_edit_link_field extends thing_ids_handler_link_field {
   function construct() {
     parent::construct();
     $this->additional_fields['type'] = 'type';
@@ -17,15 +17,15 @@ class things_handler_edit_link_field extends things_handler_link_field {
   function render($values) {
     $type = $values->{$this->aliases['type']};
     
-    //Creating a dummy things to check access against
-    $dummy_things = (object) array('type' => $type);
-    if (!things_access('edit', $dummy_things)) {
+    //Creating a dummy thing_ids to check access against
+    $dummy_thing_ids = (object) array('type' => $type);
+    if (!thing_ids_access('edit', $dummy_thing_ids)) {
       return;
     }
     
     $text = !empty($this->options['text']) ? $this->options['text'] : t('edit');
-    $things_id = $values->{$this->aliases['things_id']};
+    $thing_ids_id = $values->{$this->aliases['thing_ids_id']};
     
-    return l($text, 'admin/drupal-of-things/things/' . $things_id . '/edit');
+    return l($text, 'admin/drupal-of-things/identifiers/thing_ids/' . $thing_ids_id . '/edit');
   }
 }

@@ -51,18 +51,18 @@ function android_device_default_message_type() {
 }
 
 /**
- * Implements hook_default_things_ids_type().
+ * Implements hook_default_thing_ids_type().
  */
-function android_device_default_things_ids_type() {
+function android_device_default_thing_ids_type() {
   $items = array();
-  $items['field_device_id'] = entity_import('things_ids_type', '{
+  $items['field_device_id'] = entity_import('thing_ids_type', '{
     "type" : "field_device_id",
     "label" : "Android device id",
     "weight" : "0",
     "data" : "",
     "rdf_mapping" : []
   }');
-  $items['field_gcm_id'] = entity_import('things_ids_type', '{
+  $items['field_gcm_id'] = entity_import('thing_ids_type', '{
     "type" : "field_gcm_id",
     "label" : "GCM Identifier",
     "weight" : "0",
@@ -73,11 +73,11 @@ function android_device_default_things_ids_type() {
 }
 
 /**
- * Implements hook_default_things_type().
+ * Implements hook_default_thing_type().
  */
-function android_device_default_things_type() {
+function android_device_default_thing_type() {
   $items = array();
-  $items['android_device'] = entity_import('things_type', '{
+  $items['android_device'] = entity_import('thing_type', '{
     "type" : "android_device",
     "label" : "Android device",
     "weight" : "0",

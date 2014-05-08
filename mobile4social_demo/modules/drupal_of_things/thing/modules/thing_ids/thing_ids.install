@@ -10,47 +10,40 @@
 /**
  * Implements hook_schema().
  */
-function things_schema() {
+function thing_ids_schema() {
   $schema = array();
 
-  $schema['things'] = array(
-    'description' => 'The base table for things entities.',
+  $schema['thing_ids'] = array(
+    'description' => 'The base table for thing_ids entities.',
     'fields' => array(
-      'things_id' => array(
-        'description' => 'Primary Key: Identifier for a things.',
+      'thing_ids_id' => array(
+        'description' => 'Primary Key: thing_ids for a thing_ids.',
         'type' => 'serial',
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
       'type' => array(
-        'description' => 'The {things_type}.type of this things.',
+        'description' => 'The {thing_ids_type}.type of this thing_ids.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
         'default' => '',
       ),
-      'language' => array(
-        'description' => 'The language of the things.',
-        'type' => 'varchar',
-        'length' => 32,
-        'not null' => TRUE,
-        'default' => '',
-      ),
-      'name' => array(
-        'description' => 'The name of the things - a human-readable identifier.',
+      'token' => array(
+        'description' => 'The token of the thing_ids.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
         'default' => '',
       ),
       'created' => array(
-        'description' => 'The Unix timestamp when the things was created.',
+        'description' => 'The Unix timestamp when the thing_ids was created.',
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
       ),
       'changed' => array(
-        'description' => 'The Unix timestamp when the things was most recently saved.',
+        'description' => 'The Unix timestamp when the thing_ids was most recently saved.',
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
@@ -63,28 +56,28 @@ function things_schema() {
         'description' => 'A serialized array of additional data.',
       ),
     ),
-    'primary key' => array('things_id'),
+    'primary key' => array('thing_ids_id'),
     'indexes' => array(
       'type' => array('type'),
     ),
   );
 
-  $schema['things_type'] = array(
-    'description' => 'Stores information about defined things types.',
+  $schema['thing_ids_type'] = array(
+    'description' => 'Stores information about defined Thing Identifier types.',
     'fields' => array(
       'id' => array(
         'type' => 'serial',
         'not null' => TRUE,
-        'description' => 'Primary Key: Unique things type identifier.',
+        'description' => 'Primary Key: Unique Thing Identifier type thing_ids.',
       ),
       'type' => array(
-        'description' => 'The machine-readable name of this things type.',
+        'description' => 'The machine-readable name of this Thing Identifier type.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
       ),
       'label' => array(
-        'description' => 'The human-readable name of this things type.',
+        'description' => 'The human-readable name of this Thing Identifier type.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
@@ -95,14 +88,14 @@ function things_schema() {
         'not null' => TRUE,
         'default' => 0,
         'size' => 'tiny',
-        'description' => 'The weight of this things type in relation to others.',
+        'description' => 'The weight of this Thing Identifier type in relation to others.',
       ),
       'data' => array(
         'type' => 'text',
         'not null' => FALSE,
         'size' => 'big',
         'serialize' => TRUE,
-        'description' => 'A serialized array of additional data related to this things type.',
+        'description' => 'A serialized array of additional data related to this Thing Identifier type.',
       ),
     ) + entity_exportable_schema_fields(),
     'primary key' => array('id'),

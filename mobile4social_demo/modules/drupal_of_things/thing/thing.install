@@ -10,40 +10,47 @@
 /**
  * Implements hook_schema().
  */
-function things_ids_schema() {
+function thing_schema() {
   $schema = array();
 
-  $schema['things_ids'] = array(
-    'description' => 'The base table for things_ids entities.',
+  $schema['thing'] = array(
+    'description' => 'The base table for thing entities.',
     'fields' => array(
-      'things_ids_id' => array(
-        'description' => 'Primary Key: things_ids for a things_ids.',
+      'thing_id' => array(
+        'description' => 'Primary Key: Identifier for a thing.',
         'type' => 'serial',
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
       'type' => array(
-        'description' => 'The {things_ids_type}.type of this things_ids.',
+        'description' => 'The {thing_type}.type of this thing.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
         'default' => '',
       ),
-      'token' => array(
-        'description' => 'The token of the things_ids.',
+      'language' => array(
+        'description' => 'The language of the thing.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'name' => array(
+        'description' => 'The name of the thing - a human-readable identifier.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
         'default' => '',
       ),
       'created' => array(
-        'description' => 'The Unix timestamp when the things_ids was created.',
+        'description' => 'The Unix timestamp when the thing was created.',
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
       ),
       'changed' => array(
-        'description' => 'The Unix timestamp when the things_ids was most recently saved.',
+        'description' => 'The Unix timestamp when the thing was most recently saved.',
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
@@ -56,28 +63,28 @@ function things_ids_schema() {
         'description' => 'A serialized array of additional data.',
       ),
     ),
-    'primary key' => array('things_ids_id'),
+    'primary key' => array('thing_id'),
     'indexes' => array(
       'type' => array('type'),
     ),
   );
 
-  $schema['things_ids_type'] = array(
-    'description' => 'Stores information about defined Things Identifier types.',
+  $schema['thing_type'] = array(
+    'description' => 'Stores information about defined thing types.',
     'fields' => array(
       'id' => array(
         'type' => 'serial',
         'not null' => TRUE,
-        'description' => 'Primary Key: Unique Things Identifier type things_ids.',
+        'description' => 'Primary Key: Unique thing type identifier.',
       ),
       'type' => array(
-        'description' => 'The machine-readable name of this Things Identifier type.',
+        'description' => 'The machine-readable name of this thing type.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
       ),
       'label' => array(
-        'description' => 'The human-readable name of this Things Identifier type.',
+        'description' => 'The human-readable name of this thing type.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
@@ -88,14 +95,14 @@ function things_ids_schema() {
         'not null' => TRUE,
         'default' => 0,
         'size' => 'tiny',
-        'description' => 'The weight of this Things Identifier type in relation to others.',
+        'description' => 'The weight of this thing type in relation to others.',
       ),
       'data' => array(
         'type' => 'text',
         'not null' => FALSE,
         'size' => 'big',
         'serialize' => TRUE,
-        'description' => 'A serialized array of additional data related to this Things Identifier type.',
+        'description' => 'A serialized array of additional data related to this thing type.',
       ),
     ) + entity_exportable_schema_fields(),
     'primary key' => array('id'),
