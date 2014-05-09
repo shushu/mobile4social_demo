@@ -476,6 +476,32 @@ function thing_menu_local_tasks_alter(&$data, $router_item, $root_path) {
   }
 }
 
+/**
+ * Implements hook_init().
+ */
+function thing_init() {
+  global $thing;
+  if ($thing) {
+    return;
+  }
+
+  // Use thing from session, if exist;
+  if ($_SESSION['thing']) {
+    $thing = $_SESSION['thing'];
+  }
+  // Try to get thing id from GET request.
+  elseif ($_GET['thing_id']) {
+    $thing = thing_load($_GET['thing_id']);
+  }
+  // Try to get thing id from POST request.
+  elseif ($_POST['thing_id']) {
+    $thing = thing_load($_POST['thing_id']);
+  }
+  // Save into session.
+  if ($thing) {
+    $_SESSION['thing'] = $thing;
+  }
+}
 
 /**
  * The class used for thing entities
