@@ -41,7 +41,9 @@ function ctools_context_create_thing($empty, $data = NULL, $conf = FALSE) {
 
   if ($conf) {
     global $thing;
-    $data = user_load($thing->thing_id);
+    if ($thing) {
+      $data = thing_load($thing->thing_id);
+    }
   }
   // Load entity if the data provided is a numeric value. This kind of data is
   // passed by some relationships.
@@ -52,7 +54,9 @@ function ctools_context_create_thing($empty, $data = NULL, $conf = FALSE) {
   if (!empty($data)) {
     $context->data     = $data;
     $context->title    = isset($data->name) ? $data->name : t('A thing');
-    $context->argument = $data->uid;
+    if (isset($data->thing_id)) {
+      $context->argument = $data->thing_id;
+    }
     return $context;
   }
 }
