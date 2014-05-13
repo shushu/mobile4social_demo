@@ -32,8 +32,8 @@ $plugin = array(
  * are not always created from the UI.
  */
 function ctools_context_create_thing($empty, $data = NULL, $conf = FALSE) {
-  $context = new ctools_context(array('entity:things', 'entity', 'things'));
-  $context->plugin = 'things';
+  $context = new ctools_context(array('entity:thing', 'entity', 'thing'));
+  $context->plugin = 'thing';
 
   if ($empty) {
     return $context;
@@ -41,18 +41,22 @@ function ctools_context_create_thing($empty, $data = NULL, $conf = FALSE) {
 
   if ($conf) {
     global $thing;
-    $data = user_load($thing->thing_id);
+    if ($thing) {
+      $data = thing_load($thing->thing_id);
+    }
   }
   // Load entity if the data provided is a numeric value. This kind of data is
   // passed by some relationships.
   if (is_numeric($data)) {
-    $data = things_load($data);
+    $data = thing_load($data);
   }
 
   if (!empty($data)) {
     $context->data     = $data;
     $context->title    = isset($data->name) ? $data->name : t('A thing');
-    $context->argument = $data->uid;
+    if (isset($data->thing_id)) {
+      $context->argument = $data->thing_id;
+    }
     return $context;
   }
 }
@@ -99,4 +103,3 @@ function ctools_context_thing_convert($context, $type) {
     }
   }
 }
-
