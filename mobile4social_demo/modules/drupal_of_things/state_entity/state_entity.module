@@ -93,7 +93,7 @@ function state_entity_entity_info_alter(&$entity_info) {
       'admin' => array(
         'path' => 'admin/drupal-of-things/configuration/state-entity-types/manage/%state_entity_type',
         'real path' => 'admin/drupal-of-things/configuration/state-entity-types/manage/' . $type,
-        'bundle argument' => 4,
+        'bundle argument' => 5,
         'access arguments' => array('administer state entity types'),
       ),
     );
