@@ -581,3 +581,23 @@ class ThingTypeController extends EntityAPIControllerExportable {
   }
 
 }
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function thing_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools' && !empty($plugin)) {
+    return "plugins/$plugin";
+  }
+}
+
+function thing_ctools_entity_context_alter(&$plugin, &$entity, $plugin_id) {
+  ctools_include('context');
+  switch ($plugin_id) {
+    case 'entity:thing':
+      $plugin = ctools_get_context('thing');
+      unset($plugin['no ui']);
+      unset($plugin['no required context ui']);
+      break;
+  }
+}
