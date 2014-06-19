@@ -15,7 +15,7 @@ $plugin = array(
   'description' => t('A single thing object.'),
   'context' => 'ctools_context_create_thing',
   'edit form' => 'ctools_context_thing_settings_form',
-  'defaults' => array('type' => 'select', 'thing_id' => ''),
+  'defaults' => array('thing_id' => ''),
   'keyword' => 'thing',
   'context name' => 'thing',
   'convert list' => 'ctools_context_thing_convert_list',
